@@ -41,9 +41,10 @@ function App() {
     $(document).keyup(function(event){
       if(event.keyCode ==13){
 
-        $("ul").append("<li>"+$("#in").val()+"</li>"); //将输入的输出到界面
+        // $("ul").append("<li>"+$("#in").val()+"</li>"); //将输入的输出到界面
         // $("ul").append("<li>"+msg+"</li>"); //获取返回值并输出
         cmdlines[cmdindex] = document.getElementById("in").value;
+        document.getElementById("output").append($('<li>cmdlines[cmdindex]</li>')); //将输入的输出到界面
         cmdindex++;
 
         $("#in").val(""); //清空输入框
@@ -356,9 +357,6 @@ function App() {
               <div className="window">
                  <div className="title">
                   <Row>
-                  <Col>
-                   <span>PCLogo</span>
-                  </Col>
                     <Col offset={18}>
                       <Button id="execute"  type='primary'
                               shape="round"
@@ -369,7 +367,7 @@ function App() {
                   </Row>
                  </div>
                  <div id="text">
-                   <ul>
+                   <ul id = "output">
                      <li>Welcome...</li>
                    </ul>
                    <input type="text" name="" id='in'>

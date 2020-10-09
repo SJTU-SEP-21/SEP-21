@@ -50,7 +50,7 @@ body {
   height:400px;
   opacity:0.75;
   margin-top: -360px;
-  margin-left: -245px;
+  margin-left: -210px;
   background-color:#ffffff;
   overflow:hidden
 }
@@ -62,6 +62,7 @@ body {
   width:800px;
   height:400px;
   margin-left:-210px;
+  background-color:#ffffff;
 }
 .title {
   background-color:#61dafb;
