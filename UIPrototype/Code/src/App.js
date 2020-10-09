@@ -44,7 +44,9 @@ function App() {
         // $("ul").append("<li>"+$("#in").val()+"</li>"); //将输入的输出到界面
         // $("ul").append("<li>"+msg+"</li>"); //获取返回值并输出
         cmdlines[cmdindex] = document.getElementById("in").value;
-        document.getElementById("output").append($('<li>cmdlines[cmdindex]</li>')); //将输入的输出到界面
+        var newli = document.createElement("li");
+        newli.innerHTML = '<li>' + cmdlines[cmdindex] + '</li>';
+        document.getElementById("output").append(newli); //将输入的输出到界面
         cmdindex++;
 
         $("#in").val(""); //清空输入框
@@ -218,27 +220,37 @@ function App() {
 
           case "XCOR":
             var xcor = x - xrange;
-            $("ul").append("<li>-> " + xcor + "</li>");
+            var newli = document.createElement("li");
+            newli.innerHTML = '<li>' + "XCOR: " + xcor + '</li>';
+            document.getElementById("output").append(newli);
             break;
 
           case "YCOR":
             var ycor = yrange - y;
-            $("ul").append("<li>-> " + ycor + "</li>");
+            var newli = document.createElement("li");
+            newli.innerHTML = '<li>' + "YCOR: " + ycor + '</li>';
+            document.getElementById("output").append(newli);
             break;
 
           case "GETXY":
             var xcor = x - xrange;
             var ycor = yrange - y;
-            $("ul").append("<li>-> " + xcor + " " + ycor + "</li>");
+            var newli = document.createElement("li");
+            newli.innerHTML = '<li>' + "XCOR: " + xcor + " YCOR: " + ycor + '</li>';
+            document.getElementById("output").append(newli);
             break;
 
           case "HEADING":
             var heading = (180 - angle) % 360;
-            $("ul").append("<li>-> " + heading + "°" + "</li>");
+            var newli = document.createElement("li");
+            newli.innerHTML = '<li>' + "HEADING: " + heading + "°" + '</li>';
+            document.getElementById("output").append(newli);
             break;
 
           default:
-            $("ul").append("<li>-> syntax fault</li>");
+            var newli = document.createElement("li");
+            newli.innerHTML = '<li>' + "-> syntax fault" + '</li>';
+            document.getElementById("output").append(newli);
         }
 
       }
