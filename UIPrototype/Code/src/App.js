@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import $ from 'jquery';
 import turtle from './img/turtle.png';
 import { Layout, Menu, Breadcrumb ,Col,Row,Button} from 'antd';
+
 import {  StarTwoTone, BulbTwoTone,HighlightTwoTone} from '@ant-design/icons';
 import font from "./img/font.png"
 import  whale from "./img/whale.png"
@@ -266,40 +267,40 @@ function App() {
         <Header className="header">
           <div className="logo" />
           <Menu theme="dark" mode="horizontal" >
-            <Row>
-              <Col offset={1} span={3}>
+              <Row>
+                  <Col offset={1} span={3}>
 
-                  <img
-                      alt='turtle'
-                      className='logo'
-                      src={turtle}
-                      style={{ height: 45 }}
-                  />
-                  <img
-                      alt='Font'
-                      className='logo'
-                      src={font}
-                      style={{ height: 45 }}
-                  />
+                      <img
+                          alt='turtle'
+                          className='logo'
+                          src={turtle}
+                          style={{ height: 45 }}
+                      />
+                      <img
+                          alt='Font'
+                          className='logo'
+                          src={font}
+                          style={{ height: 45 }}
+                      />
 
-              </Col>
-              <Col  offset={2} span={2}>
-                <Menu.Item key='1' className='Menu_item' icon={<HighlightTwoTone />} style={{ fontSize:'20px' }}>
-                  自由绘图
-                </Menu.Item>
-              </Col>
-              <Col  span={4}>
-                <Menu.Item key='2' className='Menu_item' icon={<BulbTwoTone />} style={ { fontSize:'20px' } }>
-                  教学关卡
-                </Menu.Item>
-              </Col>
-              <Col offset={6} span={1}>
-                <Menu.Item key='3' className='Menu_item'  >
-                  <Button type="primary" shape="round" size="large" style={{background:"orange",fontSize:'20px'}}> SIGN OUT</Button>
-                </Menu.Item>
-              </Col>
+                  </Col>
+                  <Col  offset={2} span={2}>
+                      <Menu.Item key='1' className='Menu_item' icon={<HighlightTwoTone />} style={{ fontSize:'20px' }}>
+                          自由绘图
+                      </Menu.Item>
+                  </Col>
+                  <Col  span={4}>
+                      <Menu.Item key='2' className='Menu_item' icon={<BulbTwoTone />} style={ { fontSize:'20px' } }>
+                          教学关卡
+                      </Menu.Item>
+                  </Col>
+                  <Col offset={6} span={1}>
+                      <Menu.Item key='3' className='Menu_item'  >
+                          <Button type="primary" shape="round" size="large" style={{background:"orange",fontSize:'20px'}}> SIGN OUT</Button>
+                      </Menu.Item>
+                  </Col>
 
-            </Row>
+              </Row>
           </Menu>
         </Header>
         <Layout>
@@ -315,25 +316,25 @@ function App() {
                   backgroundRepeat: "no-repeat",
                   backgroundSize:"100% 100%"}}
             >
-              <SubMenu key="sub1" icon={<StarTwoTone />} title="普通关卡">
-                <Menu.Item key="1">关卡1</Menu.Item>
-                <Menu.Item key="2">关卡2</Menu.Item>
-                <Menu.Item key="3">关卡3</Menu.Item>
+                <SubMenu key="sub1" icon={<StarTwoTone />} title="普通关卡">
+                    <Menu.Item key="1">关卡1</Menu.Item>
+                    <Menu.Item key="2">关卡2</Menu.Item>
+                    <Menu.Item key="3">关卡3</Menu.Item>
 
-              </SubMenu>
-              <SubMenu key="sub2" icon={<StarTwoTone />} title="进阶关卡">
-                <Menu.Item key="4">关卡1</Menu.Item>
-                <Menu.Item key="5">关卡2</Menu.Item>
-                <Menu.Item key="6">关卡3</Menu.Item>
-                <Menu.Item key="7">关卡4</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub3" icon={<StarTwoTone />} title="困难关卡">
-                <Menu.Item key="8">关卡1</Menu.Item>
-                <Menu.Item key="9">关卡2</Menu.Item>
-                <Menu.Item key="10">关卡3</Menu.Item>
+                </SubMenu>
+                <SubMenu key="sub2" icon={<StarTwoTone />} title="进阶关卡">
+                    <Menu.Item key="4">关卡1</Menu.Item>
+                    <Menu.Item key="5">关卡2</Menu.Item>
+                    <Menu.Item key="6">关卡3</Menu.Item>
+                    <Menu.Item key="7">关卡4</Menu.Item>
+                </SubMenu>
+                <SubMenu key="sub3" icon={<StarTwoTone />} title="困难关卡">
+                    <Menu.Item key="8">关卡1</Menu.Item>
+                    <Menu.Item key="9">关卡2</Menu.Item>
+                    <Menu.Item key="10">关卡3</Menu.Item>
 
-              </SubMenu>
-            </Menu>
+                </SubMenu>
+          </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' ,
             background:"aliceblue"}}>

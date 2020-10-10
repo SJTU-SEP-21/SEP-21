@@ -49,7 +49,7 @@ body {
   width:800px;
   height:400px;
   opacity:0.75;
-  margin-top: -340px;
+  margin-top: -360px;
   margin-left: -210px;
   background-color:#ffffff;
   overflow:hidden
@@ -61,8 +61,8 @@ body {
   border:6px #ccc outset;
   width:800px;
   height:400px;
-  margin-left:-224px;
-  background-color:#ccffff;
+  margin-left:-210px;
+  background-color:#ffffff;
 }
 .title {
   background-color:#61dafb;
