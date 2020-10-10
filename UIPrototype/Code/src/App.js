@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import $ from 'jquery';
 import turtle from './img/turtle.png';
 import { Layout, Menu, Breadcrumb ,Col,Row,Button} from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined,SearchOutlined,DesktopOutlined,MessageOutlined } from '@ant-design/icons';
+import {  StarTwoTone, BulbTwoTone,HighlightTwoTone} from '@ant-design/icons';
 import font from "./img/font.png"
 import  whale from "./img/whale.png"
 import back from "./img/back.jpg"
@@ -283,23 +283,20 @@ function App() {
                   />
 
               </Col>
-              <Col offset={1} span={2}>
-                <Menu.Item key='1' className='Menu_item' icon={<SearchOutlined />}>
-                  项目浏览
+              <Col  offset={2} span={2}>
+                <Menu.Item key='1' className='Menu_item' icon={<HighlightTwoTone />} style={{ fontSize:'20px' }}>
+                  自由绘图
                 </Menu.Item>
               </Col>
-              <Col span={2}>
-                <Menu.Item key='2' className='Menu_item' icon={<DesktopOutlined />}>
-                  我的项目
+              <Col  span={4}>
+                <Menu.Item key='2' className='Menu_item' icon={<BulbTwoTone />} style={ { fontSize:'20px' } }>
+                  教学关卡
                 </Menu.Item>
               </Col>
-              <Col span={1}>
-                <Menu.Item key='3' className='Menu_item' icon={<MessageOutlined />}>
-                  <a href='#'>Messages</a>
+              <Col offset={6} span={1}>
+                <Menu.Item key='3' className='Menu_item'  >
+                  <Button type="primary" shape="round" size="large" style={{background:"orange",fontSize:'20px'}}> SIGN OUT</Button>
                 </Menu.Item>
-              </Col>
-              <Col span={3} offset={5}>
-
               </Col>
 
             </Row>
@@ -318,22 +315,22 @@ function App() {
                   backgroundRepeat: "no-repeat",
                   backgroundSize:"100% 100%"}}
             >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="用户选项">
-                <Menu.Item key="1">个人信息</Menu.Item>
-                <Menu.Item key="2">修改密码</Menu.Item>
-                <Menu.Item key="3">注销</Menu.Item>
+              <SubMenu key="sub1" icon={<StarTwoTone />} title="普通关卡">
+                <Menu.Item key="1">关卡1</Menu.Item>
+                <Menu.Item key="2">关卡2</Menu.Item>
+                <Menu.Item key="3">关卡3</Menu.Item>
 
               </SubMenu>
-              <SubMenu key="sub2" icon={<LaptopOutlined />} title="项目管理">
-                <Menu.Item key="4">创建项目</Menu.Item>
-                <Menu.Item key="5">管理项目</Menu.Item>
-                <Menu.Item key="6">保存项目</Menu.Item>
-                <Menu.Item key="7">发布项目</Menu.Item>
+              <SubMenu key="sub2" icon={<StarTwoTone />} title="进阶关卡">
+                <Menu.Item key="4">关卡1</Menu.Item>
+                <Menu.Item key="5">关卡2</Menu.Item>
+                <Menu.Item key="6">关卡3</Menu.Item>
+                <Menu.Item key="7">关卡4</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub3" icon={<NotificationOutlined />} title="说明">
-                <Menu.Item key="8">操作说明</Menu.Item>
-                <Menu.Item key="9">编程语言简介</Menu.Item>
-                <Menu.Item key="10">背景介绍</Menu.Item>
+              <SubMenu key="sub3" icon={<StarTwoTone />} title="困难关卡">
+                <Menu.Item key="8">关卡1</Menu.Item>
+                <Menu.Item key="9">关卡2</Menu.Item>
+                <Menu.Item key="10">关卡3</Menu.Item>
 
               </SubMenu>
             </Menu>
