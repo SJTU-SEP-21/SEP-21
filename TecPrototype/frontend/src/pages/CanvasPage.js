@@ -154,6 +154,13 @@ class CanvasPage extends React.Component{
         angle = 180.0
         c.height = c.height;
         ctx.drawImage(img,x-imgdw/2,y-imgdh/2,imgdw,imgdh);
+        var out=document.getElementById("output");
+
+        for(var i=0,num=out.childNodes.length;i<num;i++)
+        {
+            if(out.childNodes[i]!=null)
+            out.removeChild(out.childNodes[i]);
+        }
 
         var i = 0;
         for (i = 0;i < cmdlength;i++) {
@@ -356,8 +363,10 @@ class CanvasPage extends React.Component{
                     var codelength = code.length;
                     console.log(code[codelength-1]);
                     if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
-                    code += "syntax fault!" + String.fromCharCode(13);
-                    this.setState({code: code});
+                    var newli = document.createElement("li");
+                    newli.innerHTML = '<li>' + "syntax fault !"  + '</li>';
+                    document.getElementById("output").append(newli);
+
                     break;
             }
 
@@ -397,7 +406,7 @@ class CanvasPage extends React.Component{
 
                     <Col span={12}>
                         <div  style={{
-                            height:'600px',
+                            height:'500px',
                             width:'500px'
                         }}>
                             <div className="title">
@@ -427,6 +436,16 @@ class CanvasPage extends React.Component{
                                           theme={"vs-light"}>
 
                             </MonacoEditor>
+                            <br/>
+                            <div  style={{
+                                width:'500px',
+                                backgroundColor:'transparent'
+                            }}>
+                                <div className={"title"}>输出</div>
+                                <ul id={"output"}>
+
+                                </ul>
+                            </div>
 
                         </div>
                     </Col>

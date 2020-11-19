@@ -18,7 +18,8 @@ class BasicRoute extends React.Component {
             <Router>
                 {/* <ErrorBoundary> */}
                 <Switch>
-                    <Route exact path='/' component={InitPage} />
+                    <Route exact path='/' component={Loginpage} />
+                    <Route exact path='/init' component={InitPage} />
                     <Route exact path='/login' component={Loginpage} />
                     <Route exact path='/singledraw' component={Home} />
                     {/*<Route exact path='/login' component={Loginpage} />*/}

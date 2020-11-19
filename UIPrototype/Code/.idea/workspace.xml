@@ -31,6 +31,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../TecPrototype/frontend" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -69,6 +70,7 @@
       <workItem from="1602349024381" duration="1082000" />
       <workItem from="1602350621797" duration="378000" />
       <workItem from="1602353029177" duration="766000" />
+      <workItem from="1605799779939" duration="98000" />
     </task>
     <servers />
   </component>
@@ -79,10 +81,11 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1602215938333">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="686" y="211" key="FileChooserDialogImpl" timestamp="1605799868791">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1602215938333" />
+    <state x="686" y="211" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605799868791" />
     <state width="1493" height="208" key="GridCell.Tab.0.bottom" timestamp="1602353803753">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -107,10 +110,11 @@
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="254" y="125" key="SettingsEditor/0.0.1500.960@0.0.1500.960" timestamp="1602349037903" />
-    <state x="452" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1602350620804">
-      <screen x="0" y="0" width="1500" height="960" />
+    <state x="579" y="373" key="com.intellij.ide.util.TipDialog" timestamp="1605799779972">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="452" y="344" key="com.intellij.ide.util.TipDialog/0.0.1500.960@0.0.1500.960" timestamp="1602350620804" />
+    <state x="579" y="373" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605799779972" />
     <state x="413" y="240" key="run.anything.popup" timestamp="1602253408975">
       <screen x="0" y="0" width="1500" height="960" />
     </state>

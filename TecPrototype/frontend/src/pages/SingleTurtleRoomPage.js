@@ -444,12 +444,30 @@ class SingleTurtlePage extends React.Component{
                     </Menu>
                 </Header>
 
-                <div>
+                <Layout style={{ padding: '0 24px 24px' ,
+                    background:"aliceblue"}}>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+
+                    </Breadcrumb>
+                    <Content
+                        className="site-layout-background"
+
+                        style={{
+                            padding: 24,
+                            margin: 0,
+                            minHeight: 850,
+
+                            backgroundImage:'url('+back+')' ,
+                            backgroundRepeat:"no-repeat",
+                            backgroundSize:"100% 100%"
+                        }
+                        }
+                    >
                     <Row>
 
                         <Col span={12}>
                             <div  style={{
-                                height:'600px',
+                                height:'500px',
                                 width:'500px'
                             }}>
                                 <div className="title">
@@ -479,37 +497,33 @@ class SingleTurtlePage extends React.Component{
                                               theme={"vs-light"}>
 
                                 </MonacoEditor>
+                                <br/>
+                                <div  style={{
+                                    width:'500px',
+                                    backgroundColor:'transparent'
+                                }}>
+                                    <div className={"title"}>输出</div>
+                                    <ul id={"output"}>
 
+                                    </ul>
+                                </div>
                             </div>
                         </Col>
                         <Col offset={2}>
                             <canvas id="myCanvas" width="800" height="400" className="canvas"></canvas>
                         </Col>
                     </Row>
-                </div>
 
 
-                <Layout style={{ padding: '0 24px 24px' ,
-                    background:"aliceblue"}}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
 
-                    </Breadcrumb>
-                    <Content
-                        className="site-layout-background"
 
-                        style={{
-                            padding: 24,
-                            margin: 0,
-                            minHeight: 850,
-
-                            backgroundImage:'url('+back+')' ,
-                            backgroundRepeat:"no-repeat",
-                            backgroundSize:"100% 100%"
-                        }
-                        }
-                    >
 
                         <Row>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                             <br/>
                             <br/>
                             <br/>
@@ -521,7 +535,7 @@ class SingleTurtlePage extends React.Component{
                             <Col offset={14}>
                             <div className={"window"}  >
                                 <div className={"title"}>输出</div>
-                                <div id={"text"} style={{backgroundColor:"white"}}>
+                                <div id={"text"} >
                                     <ul id={"output"}>
                                         {this.state.cmdlines}
                                     </ul>

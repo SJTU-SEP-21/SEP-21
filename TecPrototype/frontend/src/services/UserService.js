@@ -12,8 +12,8 @@ export const login = (data) => {
             let user = data.data;
             localStorage.setItem('user', JSON.stringify(user));
 
-            history.push('/');
-            window.location = '/';
+            history.push('/init');
+            window.location = '/init';
             message.success(data.msg);
         } else {
             if (data.msg) {

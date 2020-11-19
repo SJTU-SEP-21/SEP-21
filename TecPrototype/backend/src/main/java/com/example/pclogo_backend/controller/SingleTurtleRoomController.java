@@ -78,6 +78,7 @@ public class SingleTurtleRoomController {
         }
 
         room.setU2_id(u_id);
+        singleTurtleRoomDao.save(room);
         return MsgUtil.makeMsg(MsgCode.ENTER_ROOM_SUCCESS);
     }
 
