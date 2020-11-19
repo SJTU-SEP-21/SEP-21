@@ -1,21 +1,30 @@
 import React from 'react';
-
-import "../css/form.css";
-import turtle from "../img/turtle.png";
-import {Breadcrumb, Button, Col, Layout, Menu, Row} from "antd";
-import $ from "jquery";
-import * as PCService from '../services/PersonalCanvasService';
+import '../App.css';
+import 'antd/dist/antd.css';
+import $ from 'jquery';
+import turtle from '../img/turtle.png';
+import { withRouter, Link } from 'react-router-dom'
+import { Layout, Menu, Breadcrumb ,Col,Row,Button} from 'antd';
+import {  StarTwoTone, BulbTwoTone,HighlightTwoTone} from '@ant-design/icons';
+import font from "../img/font.png"
+import  whale from "../img/whale.png"
+import back from "../img/back.jpg"
+import sider from "../img/sider.png"
+import * as STRService from "../services/SingleTurtleRoomService";
 import MonacoEditor from 'react-monaco-editor';
 
-class CanvasPage extends React.Component{
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+
+class SingleTurtlePage extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
+            r_id: 0,
             user: {},
             data: null,
             code: "",
-            hascode: 0,
             cmdlines: "",
             cmdlength: 0,
             xrange: 800.0/2,
@@ -27,12 +36,10 @@ class CanvasPage extends React.Component{
             y: 400.0/2,
             isUp: 0
         }
-
         this.onChangeHandle = this.onChangeHandle.bind(this);
     }
 
     callback = (data) => {
-        console.log(data);
         this.setState({ data: data })
     }
 
@@ -52,19 +59,30 @@ class CanvasPage extends React.Component{
         const reader = new FileReader();
         reader.onload = async (e) => {
             const text = (e.target.result);
-            //console.log(text);
             this.setState({code:text});
         };
         reader.readAsText(e.target.files[0])
     };
 
+    onChange =(e) =>{
+        this.setState({
+            code : e
+        })
+    }
+
+    componentWillMount() {
+        let user = JSON.parse(localStorage.getItem('user'))
+        this.setState({user: user});
+        let r_id = this.props.match.params.id
+        console.log(r_id)
+        this.setState({ r_id: r_id })
+    }
+
+
     componentDidMount() {
 
         let user = JSON.parse(localStorage.getItem('user'));
         this.setState({user: user});
-        // console.log('will: TaskList -> componentDidMount -> user', user)
-        //
-        // this.setState({ user }, this.getWorks(user.u_id))
 
         var c = document.getElementById("myCanvas");
         var ctx=c.getContext("2d");
@@ -90,21 +108,15 @@ class CanvasPage extends React.Component{
         clearInterval(this.timerID);
     }
 
-    onChange =(e) =>{
-        this.setState({
-            code : e
-        })
-    }
-
     getCmdFile() {
         let json = {
-            c_id: 1,
-            u_id: 1,
+            r_id: this.state.r_id,
+            u_id: this.state.user.u_id,
         }
-        PCService.getCmdFile(json, this.callback);
+        STRService.getCmdFile(json, this.callback);
+        console.log(this.state.data);
 
         if (this.state.data != null) {
-            console.log(this.state.data.cmdfile);
             var cmdlines = this.state.data.cmdfile.split('\n');
             var cmdlength = cmdlines.length;
             var i = 0;
@@ -113,15 +125,24 @@ class CanvasPage extends React.Component{
                     cmdlines: cmdlines,
                     cmdlength: cmdlength
                 });
-                if (this.state.hascode == 0) {
-                    this.setState({
-                        code: this.state.data.cmdfile,
-                        hascode: 1
-                    })
-                }
                 this.Interpreter();
             }
         }
+    }
+
+    OnClick = (e) => {
+
+        var newLines = this.state.code;
+
+        let json = {
+            r_id: 1,
+            u_id: this.state.user.u_id,
+            newLines: newLines
+        }
+
+        STRService.writeNewLines(json, this.callback);
+
+        this.setState({code: ""})
     }
 
     Interpreter() {
@@ -354,7 +375,6 @@ class CanvasPage extends React.Component{
                     if (cmd[0].charCodeAt() == 13) break;
                     var code = this.state.code;
                     var codelength = code.length;
-                    console.log(code[codelength-1]);
                     if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
                     code += "syntax fault!" + String.fromCharCode(13);
                     this.setState({code: code});
@@ -364,8 +384,6 @@ class CanvasPage extends React.Component{
         }
 
         this.setState({
-            newlines: [],
-            newlinesindex: 0,
             xrange: xrange,
             yrange: yrange,
             angle: angle,
@@ -377,66 +395,147 @@ class CanvasPage extends React.Component{
         });
     }
 
-    OnClick = (e) => {
-
-        var cmdfile = this.state.code;
-
-        let json = {
-            c_id: 1,
-            u_id: 1,
-            cmdFile: cmdfile
-        }
-        PCService.writeCmdFile(json, this.callback);
-    }
-
-
     render() {
-        return (
-            <div>
-                <Row>
+        return(
+            <Layout  >
 
-                    <Col span={12}>
-                        <div  style={{
-                            height:'600px',
-                            width:'500px'
-                        }}>
-                            <div className="title">
-                                <Row>
-                                    <Col >
-                                        <input type="file" onChange={(e) => this.showFile(e)} />
-                                    </Col>
-                                    <Col offset={20}>
-                                        <Button id="execute"  type='primary'
-                                                shape="round"
-                                                style={{ background: 'red' }}
-                                                onClick = {this.OnClick}>
-                                            execute
-                                        </Button>
-                                    </Col>
-                                </Row>
+                <Header className="header">
+                    <div className="logo" />
+                    <Menu theme="dark" mode="horizontal" >
+                        <Row>
+                            <Col offset={1} span={3}>
 
+                                <img
+                                    alt='turtle'
+                                    className='logo'
+                                    src={turtle}
+                                    style={{ height: 45 }}
+                                />
+                                <img
+                                    alt='Font'
+                                    className='logo'
+                                    src={font}
+                                    style={{ height: 45 }}
+                                />
+
+                            </Col>
+                            <Col  offset={2} span={2}>
+                                <Menu.Item key='1' className='Menu_item' icon={<HighlightTwoTone />} style={{ fontSize:'20px' ,fontWeight:'900'
+                                }}>
+                                    <Link to={'/singledraw'}>
+                                        单人绘图
+                                    </Link>
+                                </Menu.Item>
+                            </Col>
+                            <Col  span={4}>
+                                <Menu.Item key='2' className='Menu_item' icon={<BulbTwoTone />} style={ { fontSize:'20px' ,fontWeight:'900'} }>
+                                    <Link to={'/roomlist'}>
+                                        退出房间
+                                    </Link>
+                                </Menu.Item>
+                            </Col>
+                            <Col offset={10} span={1}>
+                                <Menu.Item key='3' className='Menu_item'  >
+                                    <Button type="primary" shape="round" size="large" href="/login" style={{background:"orange",fontSize:'20px'}}> 退出登录</Button>
+                                </Menu.Item>
+                            </Col>
+
+                        </Row>
+                    </Menu>
+                </Header>
+
+                <div>
+                    <Row>
+
+                        <Col span={12}>
+                            <div  style={{
+                                height:'600px',
+                                width:'500px'
+                            }}>
+                                <div className="title">
+                                    <Row>
+                                        <Col >
+                                            <input type="file" onChange={(e) => this.showFile(e)} />
+                                        </Col>
+                                        <Col offset={20}>
+                                            <Button id="execute"  type='primary'
+                                                    shape="round"
+                                                    style={{ background: 'red' }}
+                                                    onClick = {this.OnClick}>
+                                                execute
+                                            </Button>
+                                        </Col>
+                                    </Row>
+
+
+                                </div>
+                                <MonacoEditor id="in"
+                                              language="cpp"
+                                              onKeyDown={this.onKeyDown}
+                                              value={this.state.code}
+
+                                              onChange={this.onChange}
+                                              editorDidMount={this.editorDidMount}
+                                              theme={"vs-light"}>
+
+                                </MonacoEditor>
 
                             </div>
-                            <MonacoEditor id="in"
-                                          language="cpp"
-                                          onKeyDown={this.onKeyDown}
-                                          value={this.state.code}
+                        </Col>
+                        <Col offset={2}>
+                            <canvas id="myCanvas" width="800" height="400" className="canvas"></canvas>
+                        </Col>
+                    </Row>
+                </div>
 
-                                          onChange={this.onChange}
-                                          editorDidMount={this.editorDidMount}
-                                          theme={"vs-light"}>
 
-                            </MonacoEditor>
+                <Layout style={{ padding: '0 24px 24px' ,
+                    background:"aliceblue"}}>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
 
-                        </div>
-                    </Col>
-                    <Col offset={2}>
-                        <canvas id="myCanvas" width="800" height="400" className="canvas"></canvas>
-                    </Col>
-                </Row>
-            </div>
+                    </Breadcrumb>
+                    <Content
+                        className="site-layout-background"
+
+                        style={{
+                            padding: 24,
+                            margin: 0,
+                            minHeight: 850,
+
+                            backgroundImage:'url('+back+')' ,
+                            backgroundRepeat:"no-repeat",
+                            backgroundSize:"100% 100%"
+                        }
+                        }
+                    >
+
+                        <Row>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <Col offset={14}>
+                            <div className={"window"}  >
+                                <div className={"title"}>输出</div>
+                                <div id={"text"} style={{backgroundColor:"white"}}>
+                                    <ul id={"output"}>
+                                        {this.state.cmdlines}
+                                    </ul>
+                                </div>
+                            </div>
+                            </Col>
+                        </Row>
+                    </Content>
+                </Layout>
+
+            </Layout>
+
+
         )
     }
 }
-
-export default CanvasPage;
+export default withRouter(SingleTurtlePage)

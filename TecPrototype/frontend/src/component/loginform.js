@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import * as UserSER from '../services/UserService'
 
 
 const formItemLayout = {
@@ -30,6 +31,13 @@ const tailFormItemLayout = {
 
 class Loginform extends React.Component {
 
+    onSubmit = (values) => {
+        // debugger
+        // console.log('Received values of form: ', values);
+        console.log("test");
+        UserSER.login(values)
+    }
+
     render() {
         //  debugger;
         return (
@@ -37,7 +45,7 @@ class Loginform extends React.Component {
                 {...formItemLayout}
                 name='normal_login'
                 // initialValues={{ remember: true }}
-
+                onFinish={this.onSubmit}
             >
                 <Form.Item
                     label='用户名'

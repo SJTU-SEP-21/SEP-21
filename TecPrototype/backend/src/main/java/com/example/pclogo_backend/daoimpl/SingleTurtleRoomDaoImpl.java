@@ -4,6 +4,8 @@ import com.example.pclogo_backend.dao.SingleTurtleRoomDao;
 import com.example.pclogo_backend.entity.SingleTurtleRoom;
 import com.example.pclogo_backend.repository.SingleTurtleRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -19,6 +21,12 @@ public class SingleTurtleRoomDaoImpl implements SingleTurtleRoomDao {
     @Override
     public SingleTurtleRoom findById(Integer rId) {
         return singleTurtleRoomRepository.findById(rId).get();
+    }
+
+    @Override
+    public Page<SingleTurtleRoom> getRooms(Pageable pageable) {
+        Page<SingleTurtleRoom> rooms = singleTurtleRoomRepository.getRooms(pageable);
+        return rooms;
     }
 
     @Transactional

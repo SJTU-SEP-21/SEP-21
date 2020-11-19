@@ -1,302 +1,31 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
-import { Table, Input,  Popconfirm, Form } from 'antd';
+import {
+    Menu,
+    Layout,
+    Row,
+    Col,
+    Pagination,
+    Input,
+    Card,
+    Dropdown,
+    Slider,
+    InputNumber
+} from 'antd'
 
 import Tooltip from "antd/es/tooltip";
 import {withRouter} from "react-router-dom";
+import { DownOutlined } from '@ant-design/icons'
+import { STR } from './STR'
 
-
-
-const EditableContext = React.createContext();
-
-
-
-const EditableRow = ({ index, ...props }) => {
-
-    const [form] = Form.useForm();
-
-    return (
-
-        <Form form={form} component={false}>
-
-            <EditableContext.Provider value={form}>
-
-                <tr {...props} />
-
-            </EditableContext.Provider>
-
-        </Form>
-
-    );
-
-};
-
-
-
-const EditableCell = ({
-
-                          title,
-
-                          editable,
-
-                          children,
-
-                          dataIndex,
-
-                          record,
-
-                          handleSave,
-
-                          ...restProps
-
-                      }) => {
-
-    const [editing, setEditing] = useState(false);
-
-    const inputRef = useRef();
-
-    const form = useContext(EditableContext);
-
-    useEffect(() => {
-
-        if (editing) {
-
-            inputRef.current.focus();
-
-        }
-
-    }, [editing]);
-
-
-
-    const toggleEdit = () => {
-
-        setEditing(!editing);
-
-        form.setFieldsValue({
-
-            [dataIndex]: record[dataIndex],
-
-        });
-
-    };
-
-
-
-    const save = async e => {
-
-        try {
-
-            const values = await form.validateFields();
-
-            toggleEdit();
-
-            handleSave({ ...record, ...values });
-
-        } catch (errInfo) {
-
-            console.log('Save failed:', errInfo);
-
-        }
-
-    };
-
-
-
-    let childNode = children;
-
-
-
-    if (editable) {
-
-        childNode = editing ? (
-
-            <Form.Item
-
-                style={{
-
-                    margin: 0,
-
-                }}
-
-                name={dataIndex}
-
-                rules={[
-
-                    {
-
-                        required: true,
-
-                        message: `${title} is required.`,
-
-                    },
-
-                ]}
-
-            >
-
-                <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-
-            </Form.Item>
-
-        ) : (
-
-            <div
-
-                className="editable-cell-value-wrap"
-
-                style={{
-
-                    paddingRight: 24,
-
-                }}
-
-                onClick={toggleEdit}
-
-            >
-
-                {children}
-
-            </div>
-
-        );
-
-    }
-
-
-
-    return <td {...restProps}>{childNode}</td>;
-
-};
-
-
+import * as RoomSER from '../services/SingleTurtleRoomService'
 
 class RoomList extends React.Component {
 
     constructor(props) {
-
         super(props);
-
-        this.columns = [
-
-            {
-
-                title: '房间编号',
-
-                dataIndex: 'r_id',
-
-                width: '10%',
-
-                editable: true,
-
-                sorter: {
-
-                    compare: (a, b) => a.r_id - b.r_id,
-
-                    multiple: 2,
-
-                },
-
-            },
-
-            {
-
-                title: '房主id',
-
-                dataIndex: 'u_id',
-
-                width: '10%',
-
-                editable: true,
-
-                sorter: {
-
-                    compare: (a, b) => a.u_id - b.u_id,
-
-                    multiple: 1,
-
-                },
-
-            },
-
-            {
-
-                title: '房间名称',
-
-                dataIndex: 'title',
-
-                width: '10%',
-
-                editable: true,
-
-            },
-
-            {
-
-                title: '房间创建时间',
-
-                dataIndex: 'bidding_ddl',
-
-                width: '10%',
-
-                editable: true,
-
-            },
-
-
-
-            {
-
-                title: '房间描述',
-
-                dataIndex: 'description',
-
-                width: '30%',
-
-                ellipsis: {
-
-                    showTitle: false,
-
-                },
-
-                render: description => (
-
-                    <Tooltip placement="topLeft" title={description}>
-
-                        {description}
-
-                    </Tooltip>
-
-                ),
-
-            },
-
-            {
-
-                title: '操作',
-
-                dataIndex: 'operation',
-
-                render: (text, record) =>
-
-                    this.state.dataSource.length >= 1 ? (
-
-                        <Popconfirm title="确定要加入房间吗?" >
-
-                            <a>加入房间</a>
-
-                        </Popconfirm>
-
-                    ) : null,
-
-            },
-
-        ];
-
         this.state = {
-
             dataSource: [
-
                 {
 
                     key: '0',
@@ -397,143 +126,79 @@ class RoomList extends React.Component {
 
 
             ],
-
             count: 6,
-
             usersinfo: [],
-
             pagesize:20,
-
             pagenum:1,
-
+            roomlist: []
         };
-
     }
 
-
-
-
-
-    changePage=(current,pageSize)=>{
-
-        this.setState({
-
-            pagenum:current,pagesize:pageSize
-
-        });
-
-
-
+    callback = (data) => {
+        this.setState({ roomlist: [] })
+        this.setState({ roomlist: data })
     }
 
+    getRooms = () => {
+        let sortby = this.state.dropdownkey == 1 ? 0 : 1
+        let json = {
+            pagenum: this.state.pagenum,
+            pagesize: this.state.pagesize,
+            sortby
+        }
+        RoomSER.getRooms(json, this.callback)
+    }
 
-
-
-
-
-
-
-
-    handleDelete = key => {
-
-        const dataSource = [...this.state.dataSource];
-
+    changePage = (current, pageSize) => {
         this.setState({
+            pagenum: current,
+            pagesize: pageSize,
+            roomlist: []
+        })
+        let json = { pagenum: current, pagesize: pageSize }
+        RoomSER.getRooms(json, this.callback)
+    }
 
-            dataSource: dataSource.filter(item => item.key !== key),
+    componentDidMount() {
+        this.getRooms()
+    }
 
-        });
-
-    };
-
-
-
-
-
+    renderList = () => {
+        let result = []
+        for (let i = 0; i < this.state.roomlist.length; i++) {
+            result.push(<STR info={this.state.roomlist[i]} />)
+        }
+        return result
+    }
 
 
     render() {
-
-        const { dataSource } = this.state;
-
-        const components = {
-
-            body: {
-
-                row: EditableRow,
-
-                cell: EditableCell,
-
-            },
-
-        };
-
-        const columns = this.columns.map(col => {
-
-            if (!col.editable) {
-
-                return col;
-
-            }
-
-
-
-            return {
-
-                ...col,
-
-                onCell: record => ({
-
-                    record,
-
-                    editable: col.editable,
-
-                    dataIndex: col.dataIndex,
-
-                    title: col.title,
-
-                }),
-
-            };
-
-        });
-
         return (
-
-            <div>
-
-
-
-                <Table
-
-                    components={components}
-
-                    rowClassName={() => 'editable-row'}
-
-                    bordered
-
-                    dataSource={dataSource}
-
-                    columns={columns}
-
-                    pagination={{
-
-                        onChange: this.changePage,
-
-                        current:this.state.pagenum,
-
-                        pageSize:this.state.pagesize,
-
-                        total:200
-
-                    }}
-
-                />
-
-            </div>
-
-        );
-
+            <Layout>
+                <Layout>
+                    <br />
+                    <Row justify='center'>
+                        <Col offset={1} span={14}>
+                            <Card>
+                                {this.renderList()}
+                                <br />
+                                <Pagination
+                                    showSizeChanger
+                                    showQuickJumper
+                                    total={500}
+                                    current={this.state.pagenum}
+                                    pageSize={this.state.pagesize}
+                                    onChange={this.changePage}
+                                    style={{ float: 'right' }}
+                                />
+                            </Card>
+                        </Col>
+                    </Row>
+                </Layout>
+                <br />
+                <br />
+            </Layout>
+        )
     }
 
 }

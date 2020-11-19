@@ -42,25 +42,43 @@ public class PersonalCanvasController {
     }
 
     @RequestMapping("/getCmdFile_PC")
-    public String getCmdFile(@RequestBody Map<String, String> params) {
+    public PersonalCanvas getCmdFile(@RequestBody Map<String, String> params) {
         int c_id = Integer.parseInt(params.get("c_id"));
         int u_id = Integer.parseInt(params.get("u_id"));
+
+        PersonalCanvas canvas = personalCanvasService.findById(c_id);
+
+        System.out.println(canvas.getCmdfile());
+
+        if (u_id == canvas.getU_id()) {
+            return canvas;
+        }
+
+        canvas.setCmdfile("error u_id");
+        return canvas;
+    }
+
+    @RequestMapping("/writeCmdFile_PC")
+    public void WriteCmdFile(@RequestBody Map<String, String> params) {
+        int c_id = Integer.parseInt(params.get("c_id"));
+        int u_id = Integer.parseInt(params.get("u_id"));
+        String cmdFile = params.get("cmdFile");
 
         PersonalCanvas canvas = personalCanvasService.findById(c_id);
 
         if (u_id == canvas.getU_id()) {
-            return canvas.getCmdfile();
+            canvas.setCmdfile(cmdFile);
+            personalCanvasService.save(canvas);
         }
-
-        return "error u_id";
     }
 
     @RequestMapping("/getNewLines_PC")
-    public String getNewLines(@RequestBody Map<String, String> params) {
+    public PersonalCanvas getNewLines(@RequestBody Map<String, String> params) {
         int c_id = Integer.parseInt(params.get("c_id"));
         int u_id = Integer.parseInt(params.get("u_id"));
 
         PersonalCanvas canvas = personalCanvasService.findById(c_id);
+        PersonalCanvas canvas_out = personalCanvasService.findById(c_id);
 
         if (u_id == canvas.getU_id()) {
             if (canvas.getNeedUpdate() == 1) {
@@ -68,25 +86,24 @@ public class PersonalCanvasController {
                 canvas.setNewline("");
                 canvas.setNeedUpdate(0);
                 personalCanvasService.save(canvas);
-                System.out.println(newLine);
-                return newLine;
+                canvas_out.setNewline(newLine);
+                return canvas_out;
             }
-            else return "nothing";
+            else {
+                canvas_out.setNewline("nothing");
+                return canvas_out;
+            }
         }
 
-        return "error u_id";
+        canvas_out.setNewline("error u_id");
+        return canvas_out;
     }
 
     @RequestMapping("/writeNewlines_PC")
     public void writeNewLines(@RequestBody Map<String, String> params) {
-        System.out.println("test");
         int c_id = Integer.parseInt(params.get("c_id"));
         int u_id = Integer.parseInt(params.get("u_id"));
         String newLines = params.get("newLines");
-
-        System.out.println(c_id);
-        System.out.println(u_id);
-        System.out.println(newLines);
 
         PersonalCanvas canvas = personalCanvasService.findById(c_id);
 

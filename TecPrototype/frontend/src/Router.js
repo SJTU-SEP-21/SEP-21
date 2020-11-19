@@ -11,7 +11,7 @@ import  Registerpage from './pages/registerpage'
 import Loginpage from './pages/loginpage'
 import Home from './pages/homepage'
 import InitPage from "./pages/initpage";
-import CmdPage from "./pages/cmdPage";
+import SingleTurtlePage from "./pages/SingleTurtleRoomPage";
 class BasicRoute extends React.Component {
     render() {
         return (
@@ -24,6 +24,7 @@ class BasicRoute extends React.Component {
                     {/*<Route exact path='/login' component={Loginpage} />*/}
                     <Route exact path='/roomlist' component={Roompage} />
                     <Route exact path='/register' component={Registerpage} />
+                    <Route path='/singleturtle/:id' component={SingleTurtlePage} />
                     <Redirect from='/*' to='/' />
                 </Switch>
                 {/* </ErrorBoundary> */}

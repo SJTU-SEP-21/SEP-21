@@ -2,7 +2,9 @@ package com.example.pclogo_backend.constant;
 
 public class Constant {
     public static final String USER_ID = "userId";
+    public static final String U_ID = "u_id";
     public static final String NAME = "name";
+    public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String PHONE = "phone";

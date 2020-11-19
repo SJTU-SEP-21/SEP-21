@@ -25,6 +25,28 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
+    @RequestMapping("/login")
+    public Msg login(@RequestBody Map<String, String> params){
+        String username = params.get(Constant.USERNAME);
+        String password = params.get(Constant.PASSWORD);
+        User user = userDao.checkUser(username, password);
+        if(user != null){
+
+            JSONObject obj = new JSONObject();
+            obj.put(Constant.U_ID, user.getU_id());
+            obj.put(Constant.USERNAME, user.getName());
+            SessionUtil.setSession(obj);
+
+            JSONObject data = JSONObject.fromObject(user);
+            data.remove(Constant.PASSWORD);
+
+            return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);
+        }
+        else{
+            return MsgUtil.makeMsg(MsgCode.LOGIN_USER_ERROR);
+        }
+    }
+
     @RequestMapping("/logout")
     public Msg logout() {
         Boolean status = SessionUtil.removeSession();
