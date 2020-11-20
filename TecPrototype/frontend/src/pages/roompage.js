@@ -58,8 +58,8 @@ class Roompage  extends React.Component{
                             </Col>
                             <Col  span={4}>
                                 <Menu.Item key='2' className='Menu_item' icon={<BulbTwoTone />} style={ { fontSize:'20px' ,fontWeight:'900'} }>
-                                    <Link to={'/roomlist'}>
-                                        双人绘图
+                                    <Link to={'/init'}>
+                                        返回主界面
                                     </Link>
                                 </Menu.Item>
                             </Col>

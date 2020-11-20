@@ -502,7 +502,7 @@ class SingleTurtlePage extends React.Component{
                                     width:'500px',
                                     backgroundColor:'transparent'
                                 }}>
-                                    <div className={"title"}>输出</div>
+                                    <div className={"title"}>终端输出</div>
                                     <ul id={"output"}>
 
                                     </ul>
@@ -534,7 +534,7 @@ class SingleTurtlePage extends React.Component{
                             <br/>
                             <Col offset={14}>
                             <div className={"window"}  >
-                                <div className={"title"}>输出</div>
+                                <div className={"title"}>命令面板</div>
                                 <div id={"text"} >
                                     <ul id={"output"}>
                                         {this.state.cmdlines}

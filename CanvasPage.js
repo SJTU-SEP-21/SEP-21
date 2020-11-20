@@ -18,8 +18,6 @@ class CanvasPage extends React.Component{
             hascode: 0,
             cmdlines: "",
             cmdlength: 0,
-            symbolTable: [],
-            symbolNum: [],
             xrange: 800.0/2,
             yrange: 400.0/2,
             imgdw: 30.0,
@@ -45,6 +43,7 @@ class CanvasPage extends React.Component{
     }
 
     editorDidMountHandle(editor, monaco) {
+        console.log('editorDidMount', editor);
         editor.focus();
     }
 
@@ -53,6 +52,7 @@ class CanvasPage extends React.Component{
         const reader = new FileReader();
         reader.onload = async (e) => {
             const text = (e.target.result);
+            //console.log(text);
             this.setState({code:text});
         };
         reader.readAsText(e.target.files[0])
@@ -62,6 +62,9 @@ class CanvasPage extends React.Component{
 
         let user = JSON.parse(localStorage.getItem('user'));
         this.setState({user: user});
+        // console.log('will: TaskList -> componentDidMount -> user', user)
+        //
+        // this.setState({ user }, this.getWorks(user.u_id))
 
         var c = document.getElementById("myCanvas");
         var ctx=c.getContext("2d");
@@ -116,47 +119,9 @@ class CanvasPage extends React.Component{
                         hascode: 1
                     })
                 }
-                this.preprocessor();
                 this.Interpreter();
             }
         }
-    }
-
-    preprocessor() {
-        var cmdlines = this.state.cmdlines;
-        var cmdlength = this.state.cmdlength;
-        var symbolTable = [];
-        var symbolNum = 0;
-        var i = 0;
-        for (i = 0;i < cmdlength;i++) {
-            var cmd = cmdlines[i].split(' ');
-
-            console.log(cmd[0]);
-
-            if (cmd[0] == "PROCEDURE") {
-                var symbol = cmd[1];
-                var startindex = i + 1;
-                symbolTable[symbolNum] = {
-                    symbol: symbol,
-                    startindex: startindex,
-                    endindex: 0
-                }
-                console.log(symbolTable[symbolNum].symbol);
-            }
-            console.log(cmd[0]);
-            if (cmd[0] == "END") {
-                console.log("wrng");
-                symbolTable[symbolNum].endindex = i;
-                console.log(symbolTable[symbolNum].endindex);
-                symbolNum++;
-            }
-        }
-
-        this.setState({
-            symbolTable: symbolTable,
-            symbolNum: symbolNum
-        });
-
     }
 
     Interpreter() {
@@ -170,9 +135,6 @@ class CanvasPage extends React.Component{
         var isUp = this.state.isUp;
         var imgdw = this.state.imgdw;
         var imgdh = this.state.imgdh;
-
-        var symbolTable = this.state.symbolTable;
-        var symbolNum = this.state.symbolNum;
 
         var c = document.getElementById("myCanvas");
         var ctx=c.getContext("2d");
@@ -192,19 +154,18 @@ class CanvasPage extends React.Component{
         angle = 180.0
         c.height = c.height;
         ctx.drawImage(img,x-imgdw/2,y-imgdh/2,imgdw,imgdh);
-        var out = document.getElementById("output");
-       for(var i=0,num=out.childNodes.length;i<num;i++)
+        var out=document.getElementById("output");
+
+        for(var i=0,num=out.childNodes.length;i<num;i++)
         {
             if(out.childNodes[i]!=null)
             out.removeChild(out.childNodes[i]);
         }
+
         var i = 0;
-        var j = 0;
         for (i = 0;i < cmdlength;i++) {
             var cmd = cmdlines[i].split(' ');
 
-            console.log(cmd[0]);
-
             switch(cmd[0]) {
                 case "FD":
                     ctx.save();
@@ -291,277 +252,11 @@ class CanvasPage extends React.Component{
                     break;
 
                 case "PU":
-                    this.setState({isUp: 1});
+                    isUp = 1;
                     break;
 
                 case "PD":
-                    this.setState({isUp: 0});
-                    break;
-
-                case "SETX":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    x = xrange + parseFloat(cmd[1]);
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "SETY":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    y = yrange - parseFloat(cmd[1]);
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "SETXY":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    x = xrange + parseFloat(cmd[1]);
-                    y = yrange - parseFloat(cmd[2]);
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "SETH":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    angle = 180 - parseFloat(cmd[1]);
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "XCOR":
-                    var xcor = x - xrange;
-                    var newli = document.createElement("li");
-                    newli.innerHTML = '<li>' + "XCOR: " + xcor + '</li>';
-                    document.getElementById("output").append(newli);
-                    break;
-
-                case "YCOR":
-                    var ycor = yrange - y;
-                    var newli = document.createElement("li");
-                    newli.innerHTML = '<li>' + "YCOR: " + ycor + '</li>';
-                    document.getElementById("output").append(newli);
-                    break;
-
-                case "GETXY":
-                    var xcor = x - xrange;
-                    var ycor = yrange - y;
-                    var newli = document.createElement("li");
-                    newli.innerHTML = '<li>' + "XCOR: " + xcor + " YCOR: " + ycor + '</li>';
-                    document.getElementById("output").append(newli);
-                    break;
-
-                case "HEADING":
-                    var heading = (180 - angle) % 360;
-                    var newli = document.createElement("li");
-                    newli.innerHTML = '<li>' + "HEADING: " + heading + "°" + '</li>';
-                    document.getElementById("output").append(newli);
-                    break;
-
-                case "PROCEDURE":
-                    console.log("test");
-                    var symbol = cmd[1];
-                    for (j = 0;j < symbolNum;j++) {
-                        if (symbolTable[j].symbol == symbol) {
-                            i = symbolTable[j].endindex;
-                            break;
-                        }
-                    }
-                    console.log(i)
-                    break;
-
-                case "":
-                    break;
-
-                default:
-                    if (cmd[0] == null) break;
-                    if (cmd[0].charCodeAt() == 13) break;
-
-                    for (j = 0;j < symbolNum;j++) {
-                        if (symbolTable[j].symbol == cmd[0]) {
-                            this.setState({
-                                angle: angle,
-                                x: x,
-                                y: y,
-                                isUp: isUp,
-                            });
-
-                            console.log(symbolTable[j].symbol);
-
-                            this.RunProcedure(symbolTable[j].startindex, symbolTable[j].endindex, img);
-
-                            angle = this.state.angle;
-                            x = this.state.x;
-                            y = this.state.y;
-                            isUp = this.state.isUp;
-                            break;
-                        }
-                    }
-                    break;
-            }
-
-        }
-
-        this.setState({
-            xrange: xrange,
-            yrange: yrange,
-            angle: angle,
-            x: x,
-            y: y,
-            isUp: isUp,
-            imgdw: imgdw,
-            imgdh: imgdh
-        });
-    }
-
-    RunProcedure(startindex, endindex, img) {
-        var cmdlines = this.state.cmdlines;
-        var cmdlength = this.state.cmdlength;
-        var xrange = this.state.xrange;
-        var yrange = this.state.yrange;
-        var angle = this.state.angle;
-        var x = this.state.x;
-        var y = this.state.y;
-        var isUp = this.state.isUp;
-        var imgdw = this.state.imgdw;
-        var imgdh = this.state.imgdh;
-
-        var symbolTable = this.state.symbolTable;
-        var symbolNum = this.state.symbolNum;
-
-        var c = document.getElementById("myCanvas");
-        var ctx=c.getContext("2d");
-
-        var i = 0;
-        var j = 0;
-        for (i = startindex;i < endindex;i++) {
-            var cmd = cmdlines[i].split(' ');
-
-            switch(cmd[0]) {
-                case "FD":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    ctx.moveTo(x,y);
-                    x = x + parseFloat(cmd[1])*Math.cos(angle/180*Math.PI);
-                    y = y - parseFloat(cmd[1])*Math.sin(angle/180*Math.PI);
-                    if (isUp == 0) {
-                        ctx.lineTo(x,y);
-                        ctx.stroke();
-                    }
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "BK":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    ctx.moveTo(x,y);
-                    x = x - parseFloat(cmd[1])*Math.cos(angle/180*Math.PI);
-                    y = y + parseFloat(cmd[1])*Math.sin(angle/180*Math.PI);
-                    if (isUp == 0) {
-                        ctx.lineTo(x,y);
-                        ctx.stroke();
-                    }
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "RT":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    angle = angle - parseFloat(cmd[1]);
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "LT":
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-
-                    angle = angle + parseFloat(cmd[1]);
-
-                    ctx.save();
-                    ctx.translate(x,y);
-                    ctx.rotate((180-angle)*Math.PI/180);
-                    ctx.drawImage(img,-imgdw/2,-imgdh/2,imgdw,imgdh);
-                    ctx.restore();
-                    break;
-
-                case "CLEAN":
-                    x = xrange;
-                    y = yrange;
-                    angle = 180.0
-                    c.height = c.height;
-                    ctx.drawImage(img,x-imgdw/2,y-imgdh/2,imgdw,imgdh);
-                    break;
-
-                case "PU":
-                    this.setState({isUp: 1});
-                    break;
-
-                case "PD":
-                    this.setState({isUp: 0});
+                    isUp = 0;
                     break;
 
                 case "SETX":
@@ -664,26 +359,14 @@ class CanvasPage extends React.Component{
                 default:
                     if (cmd[0] == null) break;
                     if (cmd[0].charCodeAt() == 13) break;
+                    var code = this.state.code;
+                    var codelength = code.length;
+                    console.log(code[codelength-1]);
+                    if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
+                    var newli = document.createElement("li");
+                    newli.innerHTML = '<li>' + "syntax fault !"  + '</li>';
+                    document.getElementById("output").append(newli);
 
-                    for (j = 0;j < symbolNum;j++) {
-                        if (symbolTable[j].symbol == cmd[0]) {
-                            this.setState({
-                                angle: angle,
-                                x: x,
-                                y: y,
-                                isUp: isUp,
-                            });
-
-                            this.RunProcedure(symbolTable[j].startindex, symbolTable[j].endindex, img);
-
-                            angle = this.state.angle;
-                            x = this.state.x;
-                            y = this.state.y;
-                            isUp = this.state.isUp;
-
-                            break;
-                        }
-                    }
                     break;
             }
 
@@ -723,7 +406,7 @@ class CanvasPage extends React.Component{
 
                     <Col span={12}>
                         <div  style={{
-                            height:'600px',
+                            height:'500px',
                             width:'500px'
                         }}>
                             <div className="title">
@@ -753,7 +436,7 @@ class CanvasPage extends React.Component{
                                           theme={"vs-light"}>
 
                             </MonacoEditor>
-                               <br/>
+                            <br/>
                             <div  style={{
                                 width:'500px',
                                 backgroundColor:'transparent'
@@ -763,6 +446,7 @@ class CanvasPage extends React.Component{
 
                                 </ul>
                             </div>
+
                         </div>
                     </Col>
                     <Col offset={2}>
