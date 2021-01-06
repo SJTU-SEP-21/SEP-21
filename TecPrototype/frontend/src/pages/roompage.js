@@ -4,7 +4,7 @@ import {Button, Col, Layout, Menu, Row,} from 'antd';
 
 import RoomList from "../component/roomlist";
 import turtle from "../img/turtle.png";
-import font from "../img/font.png";
+import font from "../img/font2.jpg";
 import {BulbTwoTone, HighlightTwoTone} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import "../css/form.css"
@@ -36,12 +36,12 @@ class Roompage  extends React.Component{
                                     src={turtle}
                                     style={{ height: 45 }}
                                 />
-                                {/*<img*/}
-                                {/*    alt='Font'*/}
-                                {/*    className='logo'*/}
-                                {/*    src={font}*/}
-                                {/*    style={{ height: 45 }}*/}
-                                {/*/>*/}
+                                <img
+                                    alt='Font'
+                                    className='logo'
+                                    src={font}
+                                    style={{ height: 45 }}
+                                />
 
                             </Col>
                             <Col  offset={2} span={2}>

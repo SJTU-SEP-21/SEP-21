@@ -7,10 +7,8 @@ import { withRouter, Link } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb ,Col,Row,Button} from 'antd';
 import CanvasPage from "../pages/CanvasPage";
 import {  StarTwoTone, BulbTwoTone,HighlightTwoTone} from '@ant-design/icons';
-import font from "../img/font.png"
-import  whale from "../img/whale.png"
-import back from "../img/back.jpg"
-import sider from "../img/sider.png"
+import font from "../img/font2.jpg"
+
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -30,12 +28,12 @@ class Home extends React.Component{
                                 src={turtle}
                                 style={{ height: 45 }}
                             />
-                            {/*<img*/}
-                            {/*    alt='Font'*/}
-                            {/*    className='logo'*/}
-                            {/*    src={font}*/}
-                            {/*    style={{ height: 45 }}*/}
-                            {/*/>*/}
+                            <img
+                                alt='Font'
+                                className='logo'
+                                src={font}
+                                style={{ height: 45 }}
+                            />
 
                         </Col>
                         <Col  offset={2} span={2}>

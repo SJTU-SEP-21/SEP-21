@@ -13,6 +13,11 @@ import {
 import whale from '../img/whale.png'
 import back from "../img/back.png"
 import sider from "../img/sider.png";
+import Text from "antd/es/typography/Text";
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+
 const { Header, Footer, Content } = Layout
 
 class InitPage extends React.Component{
@@ -27,185 +32,46 @@ class InitPage extends React.Component{
                        padding: 24,
                        minHeight: 500,
                    }} >
-          <Row>
-              {/*<Col span={8} offset={2}>*/}
-              {/*    <Card*/}
-              {/*        bodyStyle={{*/}
-              {/*            height:'400px'*/}
-              {/*        }}*/}
-              {/*        hoverable={true}*/}
-              {/*        actions={[*/}
-              {/*            <SettingOutlined key='setting' />,*/}
-              {/*            <EditOutlined key='edit' />,*/}
-              {/*            <EllipsisOutlined key='ellipsis' />*/}
-              {/*        ]}*/}
-              {/*        cover={*/}
-              {/*            <div>*/}
-              {/*                <div*/}
-              {/*                    style={{*/}
-              {/*                        background: '#0055bb',*/}
-              {/*                        whiteSpace: 'pre-wrap'*/}
-              {/*                    }}*/}
-              {/*                >*/}
-              {/*                    <span>{'            '}</span>*/}
-              {/*                    <br />*/}
-              {/*                    <span style={{ fontSize: '15px', color: 'white' }}>*/}
-              {/*          {'    ' + '欢迎回来'}*/}
-              {/*        </span>*/}
-              {/*                    <br />*/}
+         <Row>
+             <Col offset={5}>
+                 <iframe width="550" height="315"
+                     src="https://www.youtube.com/embed/8Av69QZM0mg">
+                 </iframe>
+             </Col>
+             <Col>
+                 <Row>
+                     <Col push={6}>
+                         <Title>PCLOGO 小海龟</Title>
+                     </Col>
+                 </Row>
+                 <Row>
+                     <Col push={2}>
+                         <Title level={4}> PC Logo小海龟又称Logo小海龟，是一种计算机程序设计语言，内置</Title>
+                         <Title level={4}> 一套海龟绘图系统，主要功能是辅助少儿学习编程语言。Logo通过向</Title>
+                         <Title level={4}>海龟发送命令，能够直观地学习程序的运行过程</Title>
+                     </Col>
+                 </Row>
 
-              {/*                    <br />*/}
+                 <br/>
+                 <Row>
+                     <Col push={5}>
+                         <Link to={'/singledraw'}>
+                                 <Button size={'large'} style={{background:"#5a8d0e"}}>
+                                 <b>单人绘图</b>
+                             </Button>
+                         </Link>
+                     </Col>
 
-              {/*                    <b*/}
-              {/*                        style={{*/}
-              {/*                            color: 'white',*/}
-              {/*                            fontSize: '12px',*/}
-              {/*                            float: 'right',*/}
-              {/*                            margin: '2px'*/}
-              {/*                        }}*/}
-              {/*                    >*/}
-              {/*                        {'PCLogo     '}*/}
-              {/*                    </b>*/}
-              {/*                    <br />*/}
-              {/*                    <p>{'            '}</p>*/}
-              {/*                </div>*/}
-              {/*                <Row justify='center'>*/}
-              {/*                    <img*/}
-              {/*                        src={vip}*/}
-              {/*                        style={{*/}
-              {/*                            width: 'auto',*/}
-              {/*                            height: 'auto',*/}
-              {/*                            maxWidth: '90%',*/}
-              {/*                            maxHeight: '100%'*/}
-              {/*                        }}*/}
-              {/*                    />*/}
-              {/*                </Row>*/}
+                     <Col push={10}>
+                         <Link to={'/roomlist'}>
+                             <Button  size={'large'} style={{background:"#5a8d0e"}}>
+                                 <b>双人绘图</b>
+                             </Button>
+                         </Link>
+                     </Col>
 
-              {/*                <Divider />*/}
-              {/*                <div*/}
-              {/*                    style={{*/}
-              {/*                        whiteSpace: 'pre-wrap',*/}
-              {/*                        margin: '5px'*/}
-              {/*                    }}*/}
-              {/*                >*/}
-              {/*                    <b style={{ fontSize: '18px' }}>{'  ' + '个人信息'}</b>*/}
-              {/*                    <a href='#' style={{ float: 'right' }}>*/}
-              {/*                        View all →*/}
-              {/*                    </a>*/}
-              {/*                    <br />*/}
-              {/*                    <br />*/}
-
-              {/*                </div>*/}
-              {/*            </div>*/}
-              {/*        }*/}
-              {/*    >*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-              {/*        <br/>*/}
-
-              {/*        <b*/}
-              {/*            style={{*/}
-              {/*                fontFamily: '华文行楷',*/}
-              {/*                whiteSpace: 'pre-wrap'*/}
-              {/*            }}*/}
-              {/*        >*/}
-              {/*            {'     大部分好的程序员编程不是为了钱或名望，而只是因为纯粹的乐趣。'}*/}
-              {/*            <br />*/}
-              {/*            <span style={{ float: 'right' }}>——Linus Torvalds</span>*/}
-              {/*        </b>*/}
-              {/*    </Card>*/}
-              {/*</Col>*/}
-              <Col offset={9} span={6}>
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-                  {/*<br/>*/}
-
-
-                  <Link to={'/singledraw'}>
-                  <Card
-                      width='80%'
-
-                      bodyStyle={{
-                          // backgroundImage:'url(' + whale + ')',
-                          // backgroundRepeat: "no-repeat",
-                          // backgroundSize:"100% 100%",
-                          height:'200px',
-
-                          backgroundColor:'#CCFFFF',
-
-                      }}
-
-                      hoverable={true}
-                  >
-                      <Row justify='center'>
-
-                      </Row>
-                      <br />
-
-                      <br />
-
-                      <Row justify='center'>
-                          <Link to={'/singledraw'}>
-                              <Button type='primary' shape={'round'} ghost={true} size={'large'}>
-                                  <b>单人绘图</b>
-                              </Button>
-                          </Link>
-
-                      </Row>
-                  </Card>
-                  </Link>
-                  <br/>
-                  <Link to={'/roomlist'}>
-                  <Card
-                      width='80%'
-
-                      bodyStyle={{
-                          // backgroundImage:'url(' + draw1 + ')',
-                          // backgroundRepeat: "no-repeat",
-                          // backgroundSize:"100% 100%",
-                          height:'200px',
-                          //backgroundColor:'#CCFFFF',
-                          backgroundColor:'#CCFFFF'
-
-
-                      }}
-
-                      hoverable={true}
-                  >
-                      <Row justify='center'>
-
-                      </Row>
-                      <br />
-
-                      <br />
-
-                      <Row justify='center'>
-                          <Link to={'/roomlist'}>
-                           <Button type='primary' shape={'round'} ghost={true} size={'large'} style={{outline:'none'}}>
-                              <b>双人绘图</b>
-                          </Button>
-                          </Link>
-                      </Row>
-                  </Card>
-                  </Link>
-              </Col>
-
+                 </Row>
+             </Col>
           </Row>
          </Content>
          </Layout>

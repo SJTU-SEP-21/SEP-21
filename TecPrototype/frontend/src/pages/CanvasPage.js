@@ -740,8 +740,6 @@ class CanvasPage extends React.Component{
                                         </Button>
                                     </Col>
                                 </Row>
-
-
                             </div>
                             <MonacoEditor id="in"
                                           language="cpp"
