@@ -18,10 +18,9 @@ class Home extends React.Component{
     render() {
         return(
             <Layout  >
-
-              <Header className="header">
+              <Header className="header"  style={{background:"#cbebfa"}}>
                 <div className="logo" />
-                <Menu theme="dark" mode="horizontal" >
+                <Menu theme="dark" mode="horizontal"  style={{background:"#cbebfa"}}>
                     <Row>
                         <Col offset={1} span={3}>
 
@@ -31,12 +30,12 @@ class Home extends React.Component{
                                 src={turtle}
                                 style={{ height: 45 }}
                             />
-                            <img
-                                alt='Font'
-                                className='logo'
-                                src={font}
-                                style={{ height: 45 }}
-                            />
+                            {/*<img*/}
+                            {/*    alt='Font'*/}
+                            {/*    className='logo'*/}
+                            {/*    src={font}*/}
+                            {/*    style={{ height: 45 }}*/}
+                            {/*/>*/}
 
                         </Col>
                         <Col  offset={2} span={2}>
@@ -66,7 +65,7 @@ class Home extends React.Component{
 
 
                 <Layout style={{ padding: '0 24px 24px' ,
-                  background:"aliceblue"}}>
+                  background:"#ccffff"}}>
                   <Breadcrumb style={{ margin: '16px 0' }}>
 
                   </Breadcrumb>
@@ -74,15 +73,14 @@ class Home extends React.Component{
                       className="site-layout-background"
 
                       style={{
-                        padding: 24,
-                        margin: 0,
-                        minHeight: 850,
-
-                        backgroundImage:'url('+back+')' ,
-                        backgroundRepeat:"no-repeat",
-                        backgroundSize:"100% 100%"
-                      }
-                        }
+                          padding: 24,
+                          margin: 0,
+                          minHeight: 850,
+                          background: "#ccffff",
+                          // backgroundImage:'url('+back+')' ,
+                          //   backgroundRepeat:"no-repeat",
+                          //   backgroundSize:"100% 100%"
+                      }}
                   >
                       <CanvasPage/>
                   </Content>

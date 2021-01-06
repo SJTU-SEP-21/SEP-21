@@ -751,7 +751,6 @@ class CanvasPage extends React.Component{
                                           onChange={this.onChange}
                                           editorDidMount={this.editorDidMount}
                                           theme={"vs-light"}>
-
                             </MonacoEditor>
                                <br/>
                             <div  style={{

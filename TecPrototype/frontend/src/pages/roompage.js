@@ -7,17 +7,10 @@ import turtle from "../img/turtle.png";
 import font from "../img/font.png";
 import {BulbTwoTone, HighlightTwoTone} from "@ant-design/icons";
 import {Link} from "react-router-dom";
-
-
-
-
-
+import "../css/form.css"
 
 
 const { Header,  Content } = Layout
-
-
-
 
 
 class Roompage  extends React.Component{
@@ -28,9 +21,12 @@ class Roompage  extends React.Component{
 
             <Layout>
 
-                <Header className="header">
+                <Header className={"header"} style={{background:"#cbebfa"}}>
+                {/*<Header className="header" style={styles.customHeader}>*/}
+
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" >
+                    <Menu theme="dark" mode="horizontal" style={{background:"#cbebfa"}}>
+                        {/*before <Menu theme="dark" mode="horizontal" >*/}
                         <Row>
                             <Col offset={1} span={3}>
 
@@ -40,12 +36,12 @@ class Roompage  extends React.Component{
                                     src={turtle}
                                     style={{ height: 45 }}
                                 />
-                                <img
-                                    alt='Font'
-                                    className='logo'
-                                    src={font}
-                                    style={{ height: 45 }}
-                                />
+                                {/*<img*/}
+                                {/*    alt='Font'*/}
+                                {/*    className='logo'*/}
+                                {/*    src={font}*/}
+                                {/*    style={{ height: 45 }}*/}
+                                {/*/>*/}
 
                             </Col>
                             <Col  offset={2} span={2}>
@@ -65,7 +61,7 @@ class Roompage  extends React.Component{
                             </Col>
                             <Col offset={10} span={1}>
                                 <Menu.Item key='3' className='Menu_item'  >
-                                    <Button type="primary" shape="round" size="large" href="/login" style={{background:"orange",fontSize:'20px'}}> 退出登录</Button>
+                                    <Button type="primary" shape="round" size="large" href="/login" style={{background:"orange",fontSize:'20px', margin: '10px'}}>退出登录</Button>
                                 </Menu.Item>
                             </Col>
 
@@ -76,8 +72,6 @@ class Roompage  extends React.Component{
                 <Content>
 
                     <RoomList/>
-
-
 
                 </Content>
 

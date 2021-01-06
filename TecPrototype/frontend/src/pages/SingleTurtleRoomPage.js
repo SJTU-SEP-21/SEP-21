@@ -399,9 +399,9 @@ class SingleTurtlePage extends React.Component{
         return(
             <Layout  >
 
-                <Header className="header">
+                <Header className="header" style={{background:"#cbebfa"}}>
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" >
+                    <Menu theme="dark" mode="horizontal" style={{background:"#cbebfa"}}>
                         <Row>
                             <Col offset={1} span={3}>
 
@@ -411,12 +411,12 @@ class SingleTurtlePage extends React.Component{
                                     src={turtle}
                                     style={{ height: 45 }}
                                 />
-                                <img
-                                    alt='Font'
-                                    className='logo'
-                                    src={font}
-                                    style={{ height: 45 }}
-                                />
+                                {/*<img*/}
+                                {/*    alt='Font'*/}
+                                {/*    className='logo'*/}
+                                {/*    src={font}*/}
+                                {/*    style={{ height: 45 }}*/}
+                                {/*/>*/}
 
                             </Col>
                             <Col  offset={2} span={2}>
