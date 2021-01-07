@@ -65,7 +65,7 @@ class UserControllerTest {
         param.put("password","1234");
         param.put("phone","15811111111");
         param.put("email","Bob@sjtu.edu.cn");
-        assertNotEquals(MsgUtil.makeMsg(MsgCode.DUPLICATE_USER_ERROR), userController.addUser(param));
+        assertEquals(MsgCode.SUCCESS.getStatus(), userController.addUser(param).getStatus());
 
     }
 
