@@ -20,7 +20,11 @@ public class SingleTurtleRoomDaoImpl implements SingleTurtleRoomDao {
 
     @Override
     public SingleTurtleRoom findById(Integer rId) {
-        return singleTurtleRoomRepository.findById(rId).get();
+        //return singleTurtleRoomRepository.findById(rId).get();
+        if(singleTurtleRoomRepository.findById(rId).isPresent())
+            return singleTurtleRoomRepository.findById(rId).get();
+        else
+            return null;
     }
 
     @Override
