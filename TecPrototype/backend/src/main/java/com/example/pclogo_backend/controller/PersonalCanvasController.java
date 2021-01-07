@@ -25,6 +25,9 @@ public class PersonalCanvasController {
     @RequestMapping("/createCanvas_PC")
     public Msg createRoom(@RequestBody Map<String, String> params) {
         String name = params.get(Constant.NAME);
+        if(name == "" || params.get("u_id") == ""){
+            return MsgUtil.makeMsg(MsgCode.ROOM_CREATE_FAIL, MsgUtil.CREATE_CANVAS_FAIL_MSG);
+        }
         int u_id = Integer.parseInt(params.get("u_id"));
 
         PersonalCanvas newCanvas = new PersonalCanvas();
