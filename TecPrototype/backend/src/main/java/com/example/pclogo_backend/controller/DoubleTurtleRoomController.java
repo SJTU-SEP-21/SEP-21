@@ -127,23 +127,19 @@ public class DoubleTurtleRoomController {
         return "error u_id";
     }
 
-    @RequestMapping("/writeNewLines_DTR")
+    @RequestMapping("/writeCmdLines_DTR")
     public void writeNewLines(@RequestBody Map<String, String> params) {
         int r_id = Integer.parseInt(params.get("r_id"));
         int u_id = Integer.parseInt(params.get("u_id"));
-        String newLines = params.get("newLines");
+        String cmdFile = params.get("cmdFile");
 
         DoubleTurtleRoom room = doubleTurtleRoomDao.findById(r_id);
 
         if (u_id == room.getU1_id()) {
-            String cmdFile = room.getCmdfile_1();
-            cmdFile = cmdFile.concat(newLines);
             room.setCmdfile_1(cmdFile);
             doubleTurtleRoomDao.save(room);
         }
         if (u_id == room.getU2_id()) {
-            String cmdFile = room.getCmdfile_2();
-            cmdFile = cmdFile.concat(newLines);
             room.setCmdfile_2(cmdFile);
             doubleTurtleRoomDao.save(room);
         }

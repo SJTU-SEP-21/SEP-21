@@ -8,7 +8,7 @@ import { Layout, Menu, Breadcrumb ,Col,Row,Button} from 'antd';
 import CanvasPage from "../pages/CanvasPage";
 import {  StarTwoTone, BulbTwoTone,HighlightTwoTone} from '@ant-design/icons';
 import font from "../img/font2.jpg"
-
+import back from "../img/back.jpg"
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -44,14 +44,21 @@ class Home extends React.Component{
                                 </Link>
                             </Menu.Item>
                         </Col>
-                        <Col  span={4}>
+                        <Col  span={2}>
                             <Menu.Item key='2' className='Menu_item' icon={<BulbTwoTone />} style={ { fontSize:'20px' ,fontWeight:'900'} }>
                                 <Link to={'/roomlist'}>
                                 双人绘图
                                 </Link>
                             </Menu.Item>
                         </Col>
-                        <Col offset={10} span={1}>
+                        <Col   span={2}>
+                            <Menu.Item key='3' className='Menu_item' icon={<StarTwoTone />} style={ { fontSize:'20px' ,fontWeight:'900'} }>
+                                <Link to={'/init'}>
+                                    返回主界面
+                                </Link>
+                            </Menu.Item>
+                        </Col>
+                        <Col offset={6} span={1}>
                             <Menu.Item key='3' className='Menu_item'  >
                                 <Button type="primary" shape="round" size="large" href="/login" style={{background:"orange",fontSize:'20px'}}> 退出登录</Button>
                             </Menu.Item>
@@ -74,10 +81,10 @@ class Home extends React.Component{
                           padding: 24,
                           margin: 0,
                           minHeight: 850,
-                          background: "#ccffff",
-                          // backgroundImage:'url('+back+')' ,
-                          //   backgroundRepeat:"no-repeat",
-                          //   backgroundSize:"100% 100%"
+                          // background: "#ccffff",
+                          backgroundImage:'url('+back+')' ,
+                            backgroundRepeat:"no-repeat",
+                            backgroundSize:"100% 100%"
                       }}
                   >
                       <CanvasPage/>
