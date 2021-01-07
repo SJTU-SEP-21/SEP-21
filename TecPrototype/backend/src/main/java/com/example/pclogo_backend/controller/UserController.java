@@ -29,6 +29,7 @@ public class UserController {
     public Msg login(@RequestBody Map<String, String> params){
         String username = params.get(Constant.USERNAME);
         String password = params.get(Constant.PASSWORD);
+        System.out.println(userDao);
         User user = userDao.checkUser(username, password);
         if(user != null){
 
@@ -104,12 +105,13 @@ public class UserController {
     public User getUserInfo(@RequestBody Map<String, String> params) {
         String name = params.get(Constant.NAME);
         JSONObject auth = SessionUtil.getAuth();
-        if (name.equals(auth.getString(Constant.NAME))) {
-            User user = userDao.findByName(name);
-            user.setPassword(null);
-            return user;
+        if (auth != null){
+            if(!name.equals(auth.getString(Constant.NAME))) {
+                return null;
+            }
         }
-        return null;
+        User user = userDao.findByName(name);
+        user.setPassword(null);
+        return user;
     }
-
 }
