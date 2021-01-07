@@ -20,9 +20,14 @@ public class UserDaoTest {
     private UserDao userDao;
     @Test
     public void findByName() {
+        //case 1
         String name = "Alice";
         User user = userDao.findByName(name);
         assertEquals(1, user.getU_id());
+        // case 2
+        String name2 = "Wubba lubba dub dub";
+        User user2 = userDao.findByName(name2);
+        assertEquals(null, user2);
         //System.out.println(user.getPassword());
     }
 
