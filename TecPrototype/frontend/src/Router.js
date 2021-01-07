@@ -12,13 +12,14 @@ import Loginpage from './pages/loginpage'
 import Home from './pages/homepage'
 import InitPage from "./pages/initpage";
 import SingleTurtlePage from "./pages/SingleTurtleRoomPage";
+import DoubleTurtlePage from "./pages/DoubleTurtleRoomPage";
 class BasicRoute extends React.Component {
     render() {
         return (
             <Router>
                 {/* <ErrorBoundary> */}
                 <Switch>
-                    <Route exact path='/' component={Loginpage} />
+                    <Route exact path='/' component={DoubleTurtlePage} />
                     <Route exact path='/init' component={InitPage} />
                     <Route exact path='/login' component={Loginpage} />
                     <Route exact path='/singledraw' component={Home} />

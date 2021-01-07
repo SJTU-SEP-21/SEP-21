@@ -53,6 +53,7 @@ class Loginform extends React.Component {
                     rules={[{ required: true, message: '请输入你的用户名！' }]}
                 >
                     <Input
+                        id="username"
                         prefix={<UserOutlined className='site-form-item-icon' />}
                         placeholder='Username'
                     />

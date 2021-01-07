@@ -6,7 +6,7 @@ import turtle from '../img/turtle.png';
 import { withRouter, Link } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb ,Col,Row,Button} from 'antd';
 import {  StarTwoTone, BulbTwoTone,HighlightTwoTone} from '@ant-design/icons';
-import font from "../img/font.png"
+import font from "../img/font2.jpg"
 import  whale from "../img/whale.png"
 import back from "../img/back.jpg"
 import sider from "../img/sider.png"
@@ -25,6 +25,7 @@ class DoubleTurtlePage extends React.Component{
             user: {},
             data: null,
             code: "",
+            hascode: 0,
             cmdlines_1: "",
             cmdlength_1: 0,
             cmdlines_2: "",
@@ -126,7 +127,7 @@ class DoubleTurtlePage extends React.Component{
     getCmdFile() {
         let json = {
             r_id: 1,
-            u_id: 1,
+            u_id: this.state.user.u_id,
         }
         DTRService.getCmdFile(json, this.callback);
         console.log(this.state.data);
@@ -144,6 +145,20 @@ class DoubleTurtlePage extends React.Component{
                     cmdlines_2: cmdlines_2,
                     cmdlength_2: cmdlength_2
                 });
+                if (this.state.hascode == 0) {
+                    if (this.state.data.u1_id == this.state.user.u_id) {
+                        this.setState({
+                            code: this.state.data.cmdfile_1,
+                            hascode: 1
+                        })
+                    }
+                    if (this.state.data.u2_id == this.state.user.u_id) {
+                        this.setState({
+                            code: this.state.data.cmdfile_2,
+                            hascode: 1
+                        })
+                    }
+                }
                 // this.reset();
                 this.Interpreter();
             }
@@ -161,8 +176,6 @@ class DoubleTurtlePage extends React.Component{
         }
 
         DTRService.writeCmdLines(json, this.callback);
-
-        this.setState({code: ""})
     }
 
     // reset() {
@@ -239,7 +252,7 @@ class DoubleTurtlePage extends React.Component{
                     ctx.clearRect(-imgdw/2,-imgdh/2,imgdw,imgdh);
                     ctx.restore();
 
-                    ctx.moveTo(x,y);
+                    ctx.moveTo(x_1,y_1);
                     x_1 = x_1 + parseFloat(cmd[1])*Math.cos(angle_1/180*Math.PI);
                     y_1 = y_1 - parseFloat(cmd[1])*Math.sin(angle_1/180*Math.PI);
                     if (isUp_1 == 0) {
@@ -422,14 +435,14 @@ class DoubleTurtlePage extends React.Component{
                     break;
 
                 default:
-                    if (cmd[0] == null) break;
-                    if (cmd[0].charCodeAt() == 13) break;
-                    var code = this.state.code;
-                    var codelength = code.length;
-                    if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
-                    code += "syntax fault!" + String.fromCharCode(13);
-                    this.setState({code: code});
-                    break;
+                    // if (cmd[0] == null) break;
+                    // if (cmd[0].charCodeAt() == 13) break;
+                    // var code = this.state.code;
+                    // var codelength = code.length;
+                    // if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
+                    // code += "syntax fault!" + String.fromCharCode(13);
+                    // this.setState({code: code});
+                    // break;
             }
         }
 
@@ -627,14 +640,14 @@ class DoubleTurtlePage extends React.Component{
                     break;
 
                 default:
-                    if (cmd[0] == null) break;
-                    if (cmd[0].charCodeAt() == 13) break;
-                    var code = this.state.code;
-                    var codelength = code.length;
-                    if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
-                    code += "syntax fault!" + String.fromCharCode(13);
-                    this.setState({code: code});
-                    break;
+                    // if (cmd[0] == null) break;
+                    // if (cmd[0].charCodeAt() == 13) break;
+                    // var code = this.state.code;
+                    // var codelength = code.length;
+                    // if (code[codelength - 1].charCodeAt() != 13) code += String.fromCharCode(13);
+                    // code += "syntax fault!" + String.fromCharCode(13);
+                    // this.setState({code: code});
+                    // break;
 
             }
         }
@@ -658,10 +671,9 @@ class DoubleTurtlePage extends React.Component{
     render() {
         return(
             <Layout  >
-
-                <Header className="header">
+                <Header className="header" style={{background:"#cbebfa"}}>
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" >
+                    <Menu theme="dark" mode="horizontal" style={{background:"#cbebfa"}}>
                         <Row>
                             <Col offset={1} span={3}>
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {Button, Col, Layout, Menu, Row,} from 'antd';
+import {Button, Col, Layout, Menu, Row, Modal, Space, Input} from 'antd';
 
 import RoomList from "../component/roomlist";
 import turtle from "../img/turtle.png";
 import font from "../img/font2.jpg";
-import {BulbTwoTone, HighlightTwoTone} from "@ant-design/icons";
+import {StarTwoTone,BulbTwoTone, HighlightTwoTone} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import "../css/form.css"
 
@@ -14,9 +14,41 @@ const { Header,  Content } = Layout
 
 
 class Roompage  extends React.Component{
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            roominfo: {},
+            loading: false,
+            visible: false,
+        }
+    }
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+    handleCancel = () => {
+        this.setState({ visible: false });
+    };
+    handleOk = () => {
+        // this.setState({ loading: true });
+        // setTimeout(() => {
+        //     this.setState({ loading: false, visible: false });
+        // }, 3000);
+        // var password = document.getElementById("password").value;
+        // var r_id = this.state.roominfo.r_id;
+        // var u_id = JSON.parse(localStorage.getItem('user')).u_id;
+        //
+        // let json = {
+        //     r_id: r_id,
+        //     u_id: u_id,
+        //     password: password
+        // }
+        //
+        // STRService.enterRoom(json);
+    };
     render() {
-
+        const { visible, loading } = this.state;
         return (
 
             <Layout>
@@ -59,8 +91,13 @@ class Roompage  extends React.Component{
                                     </Link>
                                 </Menu.Item>
                             </Col>
-                            <Col offset={10} span={1}>
-                                <Menu.Item key='3' className='Menu_item'  >
+                                <Col   span={2}>
+                                    <Menu.Item key='3' className='Menu_item'  style={ { fontSize:'20px' ,fontWeight:'900'} }>
+
+                                    </Menu.Item>
+                                </Col>
+                            <Col offset={4} span={1}>
+                                <Menu.Item key='4' className='Menu_item'  >
                                     <Button type="primary" shape="round" size="large" href="/login" style={{background:"orange",fontSize:'20px', margin: '10px'}}>退出登录</Button>
                                 </Menu.Item>
                             </Col>
@@ -68,13 +105,44 @@ class Roompage  extends React.Component{
                         </Row>
                     </Menu>
                 </Header>
+                <Layout>
+                    <Header style={{background:"transparent"}}>
+                        <Col offset={22}>
+                    <>
+                        <Button type="primary" onClick={this.showModal}>
+                            创建房间
+                        </Button>
+                        <Modal
+                            title="创建房间"
+                            visible={visible}
 
+
+
+                            footer={[
+                                <Button key="back" onClick={this.handleCancel}>
+                                    返回
+                                </Button>,
+                                <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+                                    创建
+                                </Button>,
+                            ]}
+                        >
+                            <Space direction="vertical">
+
+                                <Input id={"roomid"} placeholder="input roomid" />
+                                <Input.Password id={"password"} placeholder="input password" />
+
+                            </Space>
+                        </Modal>
+                    </>
+                        </Col>
+                    </Header>
                 <Content>
 
                     <RoomList/>
 
                 </Content>
-
+                </Layout>
                 <br />
 
                 <br />

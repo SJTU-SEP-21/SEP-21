@@ -128,7 +128,7 @@ public class DoubleTurtleRoomController {
     }
 
     @RequestMapping("/writeCmdLines_DTR")
-    public void writeNewLines(@RequestBody Map<String, String> params) {
+    public void writeCmdLines(@RequestBody Map<String, String> params) {
         int r_id = Integer.parseInt(params.get("r_id"));
         int u_id = Integer.parseInt(params.get("u_id"));
         String cmdFile = params.get("cmdFile");

@@ -25,112 +25,13 @@ class RoomList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: [
-                {
-
-                    key: '0',
-
-                    r_id: '1',
-
-                    u_id: '555556',
-
-                    title: '绘制公司logo',
-
-                    bidding_ddl:'2018-09-10 00:00:00',
-
-                    description: '为新上市的公司绘制一个美观的logo'
-                },
-
-                {
-
-                    key: '1',
-
-                    r_id: '2',
-
-                    u_id: '555555',
-
-                    title: '自由绘图',
-
-                    bidding_ddl:'2018-09-10 00:00:00',
-
-
-                    description: '闲来无聊，绘图娱乐',
-
-                },
-                {
-
-                    key: '2',
-
-                    r_id: '3',
-
-                    u_id: '555557',
-
-                    title: '自由绘图',
-
-                    bidding_ddl:'2018-09-10 00:00:00',
-
-
-                    description: '闲来无聊，绘图娱乐',
-
-                },
-                {
-
-                    key: '3',
-
-                    r_id: '4',
-
-                    u_id: '555553',
-
-                    title: '自由绘图',
-
-                    bidding_ddl:'2018-09-10 00:00:00',
-
-
-                    description: '闲来无聊，绘图娱乐',
-
-                },
-
-                {
-
-                    key: '4',
-
-                    r_id: '5',
-
-                    u_id: '555551',
-
-                    title: '自由绘图',
-
-                    bidding_ddl:'2018-09-10 00:00:00',
-
-
-                    description: '闲来无聊，绘图娱乐',
-
-                },
-
-                {
-
-                    key: '5',
-
-                    r_id: '6',
-
-                    u_id: '555560',
-
-                    title: '自由绘图',
-
-                    bidding_ddl:'2018-09-10 00:00:00',
-
-
-                    description: '闲来无聊，绘图娱乐',
-
-                },
-
-
-            ],
+            dataSource: [],
             count: 6,
             usersinfo: [],
             pagesize:20,
             pagenum:1,
-            roomlist: []
+            roomlist: [],
+
         };
     }
 

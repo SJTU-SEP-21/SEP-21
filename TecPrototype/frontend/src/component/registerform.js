@@ -3,6 +3,7 @@ import { Form, Input, Tooltip, Select, Checkbox, Button } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
 import { FormInstance } from 'antd/lib/form'
+import * as UserSER from '../services/UserService'
 
 
 const { Option } = Select
@@ -42,6 +43,13 @@ class RegisterForm extends React.Component {
         </Form.Item>
     )
 
+    onSubmit = (values) => {
+        // debugger
+        // console.log('Received values of form: ', values);
+        console.log("test");
+        UserSER.register(values)
+    }
+
     render() {
         return (
             <Form
@@ -54,6 +62,9 @@ class RegisterForm extends React.Component {
                     prefix: '86'
                 }}
                 scrollToFirstError
+
+                // initialValues={{ remember: true }}
+                onFinish={this.onSubmit}
             >
                 <Form.Item
                     name='name'

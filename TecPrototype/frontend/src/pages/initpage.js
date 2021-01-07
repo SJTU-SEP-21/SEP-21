@@ -1,20 +1,23 @@
 import React from 'react'
-import { Layout, Col, Card, Row, Button, Divider, message } from 'antd'
+import {Layout, Col, Card, Row, Button, Divider, message, Menu} from 'antd'
 import { withRouter, Link } from 'react-router-dom'
 import 'antd/dist/antd.css';
 import "../css/form.css";
 import draw1 from '../img/draw1.png'
 import vip from '../img/vip.png'
 import {
+    BulbTwoTone,
     EditOutlined,
-    EllipsisOutlined,
-    SettingOutlined
+    EllipsisOutlined, HighlightTwoTone,
+    SettingOutlined, StarTwoTone
 } from '@ant-design/icons'
 import whale from '../img/whale.png'
 import back from "../img/back.png"
 import sider from "../img/sider.png";
 import Text from "antd/es/typography/Text";
 import { Typography } from 'antd';
+import turtle from "../img/turtle.png";
+import font from "../img/font2.jpg";
 
 const { Title } = Typography;
 
@@ -25,6 +28,36 @@ class InitPage extends React.Component{
         return(
          <div className={'content-initpage'}>
             <Layout style={{ background:"transparent"}}>
+                <Header className="header"  style={{background:"transparent"}}>
+                    <div className="logo" />
+                    <Menu theme="dark" mode="horizontal"  style={{background:"transparent"}}>
+                        <Row>
+                            <Col offset={1} span={3}>
+
+                                <img
+                                    alt='turtle'
+                                    className='logo'
+                                    src={turtle}
+                                    style={{ height: 45 }}
+                                />
+                                <img
+                                    alt='Font'
+                                    className='logo'
+                                    src={font}
+                                    style={{ height: 45 }}
+                                />
+
+                            </Col>
+
+                            <Col offset={16} span={1}>
+                                <Menu.Item key='3' className='Menu_item'  >
+                                    <Button type="primary" shape="round" size="large" href="/login" style={{background:"orange",fontSize:'20px'}}> 退出登录</Button>
+                                </Menu.Item>
+                            </Col>
+
+                        </Row>
+                    </Menu>
+                </Header>
 
          <Content
                    style={{

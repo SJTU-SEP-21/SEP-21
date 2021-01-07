@@ -25,3 +25,26 @@ export const login = (data) => {
     }
     postRequest(url, data, callback)
 }
+
+export const register = (data) => {
+    const url = `${apiUrl}/register`
+    // debugger
+    const callback = (data) => {
+        // debugger
+        if (data.status >= 0 && data.status != 500) {
+            let user = data.data;
+            localStorage.setItem('user', JSON.stringify(user));
+
+            history.push('/init');
+            window.location = '/init';
+            message.success(data.msg);
+        } else {
+            if (data.msg) {
+                message.error(data.msg);
+            } else {
+                message.error('网络连接出现问题了');
+            }
+        }
+    }
+    postRequest(url, data, callback)
+}
