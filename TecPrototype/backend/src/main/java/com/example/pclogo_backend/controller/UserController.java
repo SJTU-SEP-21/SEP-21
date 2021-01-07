@@ -65,6 +65,10 @@ public class UserController {
         String phone = params.get(Constant.PHONE);
         String email = params.get(Constant.EMAIL);
 
+
+        if(name == "" || password == ""){
+            return MsgUtil.makeMsg(MsgCode.NOT_ENTERING_ANYTHING);
+        }
         User newUser = new User();
         newUser.setName(name);
         newUser.setPassword(password);
