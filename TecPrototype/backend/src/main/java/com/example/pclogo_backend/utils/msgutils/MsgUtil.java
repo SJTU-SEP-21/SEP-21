@@ -13,6 +13,8 @@ public class MsgUtil {
     public static final int ROOM_ID_ERROR = -200;
     public static final int ROOM_PASSWORD_ERROR = -201;
     public static final int ROOM_FULL = -202;
+    public static final int ROOM_CREATE_FAIL = -203;
+
 
     public static final String SUCCESS_MSG = "成功！";
     public static final String REGISTER_SUCCESS_MSG = "注册成功！";
@@ -30,6 +32,7 @@ public class MsgUtil {
     public static final String RELEASE="you are not prepared！";
     public static final String CREATE_ROOM_SUCCESS_MSG = "创建房间成功！";
     public static final String CREATE_CANVAS_SUCCESS_MSG = "创建画布成功！";
+    public static final String CREATE_CANVAS_FAIL_MSG = "创建画布失败！";
     public static final String ENTER_ROOM_SUCCESS_MSG = "进入房间成功！";
     public static final String ROOM_ID_ERR_MSG = "房间号不存在!";
     public static final String ROOM_PASSWORD_ERR_MSG = "密码错误！";
