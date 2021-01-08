@@ -75,9 +75,21 @@ class PersonalCanvasControllerTest {
 
     @Test
     void getNewLines() {
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("c_id", "1");
+        params1.put("u_id","10");
+        assertEquals("error u_id", personalCanvasController.getNewLines(params1).getNewline());
     }
 
     @Test
     void writeNewLines() {
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("c_id", "1");
+        params1.put("u_id", "1");
+        params1.put("newLines", "code");
+        String cmd = personalCanvasController.getCmdFile(params1).getCmdfile();
+        cmd = cmd.concat("code");
+        personalCanvasController.writeNewLines(params1);
+        assertEquals(cmd, personalCanvasController.getCmdFile(params1).getCmdfile());
     }
 }

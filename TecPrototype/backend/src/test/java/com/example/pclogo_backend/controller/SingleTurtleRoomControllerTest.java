@@ -21,6 +21,19 @@ class SingleTurtleRoomControllerTest {
 
     @Test
     void createRoom() {
+        //case 1
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("name", "");
+        params1.put("password","1234");
+        params1.put("u_id","1");
+        assertEquals(MsgCode.ROOM_CREATE_FAIL.getStatus(),singleTurtleRoomController.createRoom(params1).getStatus());
+        //case 2
+        Map<String, String> params2 = new HashMap<>();
+        params2.put("name", "room1");
+        params2.put("password","1234");
+        params2.put("u_id","");
+        assertEquals(MsgCode.ROOM_CREATE_FAIL.getStatus(),singleTurtleRoomController.createRoom(params2).getStatus());
+        //case 3
         Map<String, String> params = new HashMap<>();
         params.put("name", "room1");
         params.put("password","1234");
@@ -61,20 +74,35 @@ class SingleTurtleRoomControllerTest {
         Map<String, String> params1 = new HashMap<>();
         params1.put("r_id", "1");
         params1.put("u_id","1");
-        assertNotEquals("error u_id", singleTurtleRoomController.getCmdFile(params1));
+        String s =singleTurtleRoomController.getCmdFile(params1).getCmdfile();
+        assertNotEquals("error u_id", singleTurtleRoomController.getCmdFile(params1).getCmdfile());
         //case 2
         Map<String, String> params2 = new HashMap<>();
         params2.put("r_id", "1");
-        params2.put("u_id","1");
-        assertNotEquals("error u_id", singleTurtleRoomController.getCmdFile(params2));
+        params2.put("u_id","10");
+        String s3=singleTurtleRoomController.getCmdFile(params2).getCmdfile();
+        assertEquals("error u_id", singleTurtleRoomController.getCmdFile(params2).getCmdfile());
     }
 
     @Test
     void getNewLines() {
+        //case 1
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("r_id", "1");
+        params1.put("u_id","10");
+        assertEquals("error u_id", singleTurtleRoomController.getNewLines(params1));
     }
 
     @Test
     void writeNewLines() {
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("r_id", "1");
+        params1.put("u_id", "1");
+        params1.put("newLines", "code");
+        String cmd = singleTurtleRoomController.getCmdFile(params1).getCmdfile();
+        cmd = cmd.concat("code");
+        singleTurtleRoomController.writeNewLines(params1);
+        assertEquals(cmd, singleTurtleRoomController.getCmdFile(params1).getCmdfile());
     }
 
     @Test

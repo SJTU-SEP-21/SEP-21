@@ -68,7 +68,10 @@ class UserControllerTest {
         assertEquals(MsgCode.SUCCESS.getStatus(), userController.addUser(param).getStatus());
 
     }
-
+    @Test
+    void checkSession(){
+        assertEquals(MsgCode.NOT_LOGGED_IN_ERROR.getStatus(), userController.checkSession().getStatus());
+    }
     @Test
     void getUserInfo() {
         Map<String,String> param = new HashMap<>();
