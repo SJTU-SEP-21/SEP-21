@@ -32,7 +32,11 @@ public class SingleTurtleRoomController {
     public Msg createRoom(@RequestBody Map<String, String> params) {
         String name = params.get(Constant.NAME);
         String password = params.get(Constant.PASSWORD);
+        if(name == ""|| params.get("u_id") == ""){
+            return MsgUtil.makeMsg(MsgCode.ROOM_CREATE_FAIL);
+        }
         int u1_id = Integer.parseInt(params.get("u_id"));
+
 
         SingleTurtleRoom newRoom = new SingleTurtleRoom();
         newRoom.setRoom_name(name);
@@ -122,7 +126,6 @@ public class SingleTurtleRoomController {
             }
             else return "nothing";
         }
-
         return "error u_id";
     }
 
