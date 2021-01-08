@@ -1,0 +1,1 @@
+export const apiUrl = 'http://47.103.205.192:8080'
