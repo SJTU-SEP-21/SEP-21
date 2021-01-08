@@ -133,11 +133,14 @@ class DoubleTurtlePage extends React.Component{
         console.log(this.state.data);
 
         if (this.state.data != null) {
-            var cmdlines_1 = this.state.data.cmdfile_1.split('\n');
-            var cmdlines_2 = this.state.data.cmdfile_2.split('\n');
-            var cmdlength_1 = cmdlines_1.length;
-            var cmdlength_2 = cmdlines_2.length;
-            var i = 0;
+            if (this.state.data.cmdfile1 != "") {
+                var cmdlines_1 = this.state.data.cmdfile_1.split('\n');
+                var cmdlength_1 = cmdlines_1.length;
+            }
+            if (this.state.data.cmdfile1 != "") {
+                var cmdlines_2 = this.state.data.cmdfile_2.split('\n');
+                var cmdlength_2 = cmdlines_2.length;
+            }
             if (cmdlines_1[0] != "error u_id") {
                 this.setState({
                     cmdlines_1: cmdlines_1,

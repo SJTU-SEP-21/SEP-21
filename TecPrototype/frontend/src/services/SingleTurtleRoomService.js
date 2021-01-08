@@ -37,3 +37,23 @@ export const enterRoom = (data) => {
     }
     postRequest(url, data, callback)
 }
+
+export const createRoom = (data) => {
+    const url = `${apiUrl}/createRoom_STR`;
+    const callback = (data) => {
+        // debugger
+        if (data.status >= 0 && data.status != 500) {
+            const r_id = data.r_id;
+            history.push('/singleturtle/' + r_id);
+            window.location = '/singleturtle/' + r_id;
+            message.success(data.msg);
+        } else {
+            if (data.msg) {
+                message.error(data.msg);
+            } else {
+                message.error('网络连接出现问题了');
+            }
+        }
+    }
+    postRequest(url, data, callback)
+}

@@ -1,5 +1,7 @@
 package com.example.pclogo_backend.controller;
 
+import com.example.pclogo_backend.dao.PersonalCanvasDao;
+import com.example.pclogo_backend.entity.SingleTurtleRoom;
 import com.example.pclogo_backend.service.PersonalCanvasService;
 import com.example.pclogo_backend.entity.PersonalCanvas;
 import com.example.pclogo_backend.constant.Constant;
@@ -11,6 +13,9 @@ import net.sf.json.JSONObject;
 import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +27,11 @@ public class PersonalCanvasController {
     @Autowired
     private PersonalCanvasService personalCanvasService;
 
+    @Autowired
+    private PersonalCanvasDao personalCanvasDao;
+
     @RequestMapping("/createCanvas_PC")
-    public Msg createRoom(@RequestBody Map<String, String> params) {
+    public Msg createCanvas(@RequestBody Map<String, String> params) {
         String name = params.get(Constant.NAME);
         if(name == "" || params.get("u_id") == ""){
             return MsgUtil.makeMsg(MsgCode.ROOM_CREATE_FAIL, MsgUtil.CREATE_CANVAS_FAIL_MSG);
@@ -125,4 +133,32 @@ public class PersonalCanvasController {
         }
     }
 
+    // 0 latest, 1 earliest
+    @RequestMapping("/getCanvas_PC")
+    public List<PersonalCanvas> getCanvas(@RequestBody Map<String, String> params) {
+        Integer PageNum = Integer.parseInt(params.get("pagenum"));
+        Integer PageContentNum = Integer.parseInt(params.get("pagesize"));
+//        String keyword = params.get("keyword");
+//        if (keyword == null)
+//            keyword = "";
+        String sort = params.get("sortby");
+        Integer sortby = sort != null ? Integer.parseInt(sort) : 0;
+//        String higher = params.get("paymentHigher");
+//        String lower = params.get("paymentLower");
+//        Double paymentHigher = higher != null ? Double.parseDouble(higher) : 10000;
+//        Double paymentLower = lower != null ? Double.parseDouble(lower) : 0;
+
+        if (PageNum <= 0 || PageContentNum <= 0) {
+            PageNum = 1;
+            PageContentNum = 20;
+        }
+
+        if (sortby == 1) {
+            Pageable pageable = PageRequest.of(PageNum - 1, PageContentNum, Sort.by(Sort.Direction.ASC, "r_id"));
+            return personalCanvasDao.getCanvas(pageable).getContent();
+        } else {
+            Pageable pageable = PageRequest.of(PageNum - 1, PageContentNum, Sort.by(Sort.Direction.DESC, "r_id"));
+            return personalCanvasDao.getCanvas(pageable).getContent();
+        }
+    }
 }

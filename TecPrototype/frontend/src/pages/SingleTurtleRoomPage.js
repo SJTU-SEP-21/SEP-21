@@ -117,15 +117,17 @@ class SingleTurtlePage extends React.Component{
         console.log(this.state.data);
 
         if (this.state.data != null) {
-            var cmdlines = this.state.data.cmdfile.split('\n');
-            var cmdlength = cmdlines.length;
-            var i = 0;
-            if (cmdlines[0] != "error u_id") {
-                this.setState({
-                    cmdlines: cmdlines,
-                    cmdlength: cmdlength
-                });
-                this.Interpreter();
+            if (this.state.data.cmdfile != "") {
+                var cmdlines = this.state.data.cmdfile.split('\n');
+                var cmdlength = cmdlines.length;
+                var i = 0;
+                if (cmdlines[0] != "error u_id") {
+                    this.setState({
+                        cmdlines: cmdlines,
+                        cmdlength: cmdlength
+                    });
+                    this.Interpreter();
+                }
             }
         }
     }
@@ -142,7 +144,7 @@ class SingleTurtlePage extends React.Component{
 
         STRService.writeNewLines(json, this.callback);
 
-        this.setState({code: ""})
+        this.setState({code: ""});
     }
 
     Interpreter() {

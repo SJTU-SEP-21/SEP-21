@@ -8,6 +8,7 @@ import font from "../img/font2.jpg";
 import {StarTwoTone,BulbTwoTone, HighlightTwoTone} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import "../css/form.css"
+import * as STRService from '../services/SingleTurtleRoomService'
 
 
 const { Header,  Content } = Layout
@@ -31,21 +32,21 @@ class Roompage  extends React.Component{
         this.setState({ visible: false });
     };
     handleOk = () => {
-        // this.setState({ loading: true });
-        // setTimeout(() => {
-        //     this.setState({ loading: false, visible: false });
-        // }, 3000);
-        // var password = document.getElementById("password").value;
-        // var r_id = this.state.roominfo.r_id;
-        // var u_id = JSON.parse(localStorage.getItem('user')).u_id;
-        //
-        // let json = {
-        //     r_id: r_id,
-        //     u_id: u_id,
-        //     password: password
-        // }
-        //
-        // STRService.enterRoom(json);
+        this.setState({ loading: true });
+        setTimeout(() => {
+            this.setState({ loading: false, visible: false });
+        }, 3000);
+        var roomname = document.getElementById("roomname").value;
+        var password = document.getElementById("password").value;
+        var u_id = JSON.parse(localStorage.getItem('user')).u_id;
+
+        let json = {
+            roomname: roomname,
+            u_id: u_id,
+            password: password
+        }
+
+        STRService.createRoom(json);
     };
     render() {
         const { visible, loading } = this.state;
@@ -129,7 +130,7 @@ class Roompage  extends React.Component{
                         >
                             <Space direction="vertical">
 
-                                <Input id={"roomid"} placeholder="input roomid" />
+                                <Input id={"roomname"} placeholder="input roomname" />
                                 <Input.Password id={"password"} placeholder="input password" />
 
                             </Space>

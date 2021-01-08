@@ -6,6 +6,7 @@ import {Breadcrumb, Button, Col, Layout, Menu, Row} from "antd";
 import $ from "jquery";
 import * as PCService from '../services/PersonalCanvasService';
 import MonacoEditor from 'react-monaco-editor';
+import Vocal from "@untemps/react-vocal";
 
 class CanvasPage extends React.Component{
 
@@ -92,6 +93,107 @@ class CanvasPage extends React.Component{
             code : e
         })
     }
+    onChangeVocal=(e)=>{
+        var str = "";
+        var cmdFile = this.state.code;
+        var cmd = e.split(' ');
+
+        switch(cmd[0]) {
+            case "forward":
+                str = "FD " + cmd[1] + "\n";
+                break;
+
+            case "backward":
+                str = "BK " + cmd[1] + "\n";
+                break;
+
+            case "right":
+                if (cmd[1] == "turn") {
+                    str = "RT " + cmd[2] + "\n";
+                }
+                break;
+
+            case "left":
+                if (cmd[1] == "turn") {
+                    str = "LT " + cmd[2] + "\n";
+                }
+                break;
+
+            case "clean":
+                str = "CLEAN " + "\n";
+                break;
+
+            case "pen":
+                if (cmd[1] == "up") {
+                    str = "PU " + "\n";
+                    break;
+                }
+                if (cmd[1] == "down") {
+                    str = "PD " + "\n";
+                    break;
+                }
+                break;
+
+            case "set":
+                if (cmd[1] == "x" && cmd[2] == "y") {
+                    str = "SETXY" + cmd[3] + "\n";
+                    break;
+                }
+                if (cmd[1] == "x") {
+                    str = "SETX " + cmd[2] + "\n";
+                    break;
+                }
+                if (cmd[1] == "y") {
+                    str = "SETY " + cmd[2] + "\n";
+                    break;
+                }
+                if (cmd[1] == "h") {
+                    str = "SETH " + cmd[2] + "\n";
+                    break;
+                }
+                break;
+
+            case "x":
+                if (cmd[1] == "coordinate") {
+                    str = "XCOR " + "\n";
+                    break;
+                }
+                break;
+
+            case "y":
+                if (cmd[1] == "coordinate") {
+                    str = "YCOR " + "\n";
+                    break;
+                }
+                break;
+
+            case "get":
+                if (cmd[1] == "x" && cmd[2] == "y") {
+                    str = "GETXY" + "\n";
+                    break;
+                }
+                break;
+
+            case "heading":
+                str = "HEADING" + "\n";
+                break;
+
+            case "procedure":
+                str = "PROCEDURE" + "\n";
+                break;
+
+            case "":
+                str = "";
+                break;
+
+            default:
+                str = ""
+                break;
+        }
+
+        cmdFile = cmdFile.concat(str);
+        this.setState({code:cmdFile})
+    }
 
     getCmdFile() {
         let json = {
@@ -101,23 +203,25 @@ class CanvasPage extends React.Component{
         PCService.getCmdFile(json, this.callback);
 
         if (this.state.data != null) {
-            console.log(this.state.data.cmdfile);
-            var cmdlines = this.state.data.cmdfile.split('\n');
-            var cmdlength = cmdlines.length;
-            var i = 0;
-            if (cmdlines[0] != "error u_id") {
-                this.setState({
-                    cmdlines: cmdlines,
-                    cmdlength: cmdlength
-                });
-                if (this.state.hascode == 0) {
+            if (this.state.data.cmdfile != "") {
+                // console.log(this.state.data.cmdfile);
+                var cmdlines = this.state.data.cmdfile.split('\n');
+                var cmdlength = cmdlines.length;
+                var i = 0;
+                if (cmdlines[0] != "error u_id") {
                     this.setState({
-                        code: this.state.data.cmdfile,
-                        hascode: 1
-                    })
+                        cmdlines: cmdlines,
+                        cmdlength: cmdlength
+                    });
+                    if (this.state.hascode == 0) {
+                        this.setState({
+                            code: this.state.data.cmdfile,
+                            hascode: 1
+                        })
+                    }
+                    this.preprocessor();
+                    this.Interpreter();
                 }
-                this.preprocessor();
-                this.Interpreter();
             }
         }
     }
@@ -131,7 +235,7 @@ class CanvasPage extends React.Component{
         for (i = 0;i < cmdlength;i++) {
             var cmd = cmdlines[i].split(' ');
 
-            console.log(cmd[0]);
+            // console.log(cmd[0]);
 
             if (cmd[0] == "PROCEDURE") {
                 var symbol = cmd[1];
@@ -141,13 +245,13 @@ class CanvasPage extends React.Component{
                     startindex: startindex,
                     endindex: 0
                 }
-                console.log(symbolTable[symbolNum].symbol);
+                // console.log(symbolTable[symbolNum].symbol);
             }
-            console.log(cmd[0]);
+            // console.log(cmd[0]);
             if (cmd[0] == "END") {
-                console.log("wrng");
+                // console.log("wrng");
                 symbolTable[symbolNum].endindex = i;
-                console.log(symbolTable[symbolNum].endindex);
+                // console.log(symbolTable[symbolNum].endindex);
                 symbolNum++;
             }
         }
@@ -199,11 +303,20 @@ class CanvasPage extends React.Component{
             out.removeChild(out.childNodes[i]);
         }
         var i = 0;
+        var i0 = 0;
         var j = 0;
-        for (i = 0;i < cmdlength;i++) {
+        for (i0 = 0;i0 < cmdlength;i0++) {
+            console.log(cmdlines[i0]);
+            if (cmdlines[i0] == "CLEAN") {
+                i = i0 + 1;
+                console.log("test");
+            }
+        }
+        for (;i < cmdlength;i++) {
+            cmdlines[i] = cmdlines[i].concat(" 100");
             var cmd = cmdlines[i].split(' ');
 
-            console.log(cmd[0]);
+            console.log(i);
 
             switch(cmd[0]) {
                 case "FD":
@@ -727,11 +840,21 @@ class CanvasPage extends React.Component{
                             width:'500px'
                         }}>
                             <div className="title">
-                                <Row>
+                                <Row >
                                     <Col >
                                         <input type="file" onChange={(e) => this.showFile(e)} />
                                     </Col>
-                                    <Col offset={20}>
+                                    <Col push={7}>
+                                        {/*<span style={{position: 'relative'}}>*/}
+                                        <span style={{position: 'relative', top: '7px', left:'0px'}}>
+                                            <Vocal
+                                                //onStart={this.}
+                                                onResult={this.onChangeVocal}
+                                                style={{width: 16, position: 'absolute', right: 10, top: -2}}
+                                            />
+                                         </span>
+                                    </Col >
+                                    <Col offset={7}>
                                         <Button id="execute"  type='primary'
                                                 shape="round"
                                                 style={{ background: 'red' }}
